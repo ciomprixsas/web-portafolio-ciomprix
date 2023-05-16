@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import * as React from "react";
 
-function Button({name,type}) {
+export default function Button({name,type}) {
     
     return (
         <>
@@ -9,4 +9,3 @@ function Button({name,type}) {
     );
 }
 
-export default Button;
