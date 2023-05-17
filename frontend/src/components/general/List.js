@@ -2,7 +2,6 @@ import * as React from "react";
 import * as General from "./GeneralModules";
 
 export default function List({styles,items,children,props}){
-    console.log(children.type);
 
     let renderProps = Object.assign(props,children.props);
 

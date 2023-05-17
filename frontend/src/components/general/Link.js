@@ -4,13 +4,15 @@ import { useNavigate } from "react-router-dom";
 export default function Link({url,children,styles}) {
     const navigate = useNavigate();
 
-    const handleLinkOnClick=()=>{
+    console.info(children);
+
+    const handleLinkOnClick=(url)=>{
         navigate(url);
     }
     
     return (
         <>
-        <a className={styles} onClick={handleLinkOnClick}>{children}</a>
+        <a className={styles} onClick={handleLinkOnClick} href={url}>{children} </a>
         </>
     );
 }

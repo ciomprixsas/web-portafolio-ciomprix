@@ -18,6 +18,8 @@
   font-weight: normal;
 }
 body {
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   font-family: 'Open Sans-Bold','Open Sans-Italic','Open Sans-Medium';
   -webkit-font-smoothing: antialiased;
