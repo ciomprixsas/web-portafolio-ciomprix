@@ -1,9 +1,16 @@
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Link({content,url}) {
+export default function Link({url,children,styles}) {
+    const navigate = useNavigate();
+
+    const handleLinkOnClick=()=>{
+        navigate(url);
+    }
     
     return (
         <>
-        <a className='bg-red-100 p-2 m-2' href={url}>{content}</a>
+        <a className={styles} onClick={handleLinkOnClick}>{children}</a>
         </>
     );
 }
