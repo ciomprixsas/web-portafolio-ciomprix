@@ -8,6 +8,7 @@ export default function Header({logo}){
 
     const handleLinkOnClick=(url)=>{
         navigate(url);
+        alert("works?!");
     }
 
     return (
@@ -18,7 +19,7 @@ export default function Header({logo}){
                 </General.Link>
                 
                 <nav className="w-full">
-                        <General.List items={global.categories} styles={"flex flex-row justify-end"} props={{styles:"m-1"}}>
+                        <General.List items={global.categories} styles={"flex flex-row justify-end"} props={{className:"m-3"}}>
                                 <General.Link styles={"m-3"}>Link</General.Link>
                         </General.List>
                 </nav>

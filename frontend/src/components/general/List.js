@@ -1,22 +1,19 @@
 import * as React from "react";
-import * as General from "./GeneralModules";
-
 export default function List({styles,items,children,props}){
 
-    let renderProps = Object.assign(props,children.props);
-
     let i=0;
-    const nav= items.map(item=>
-        <li key={i++}>
-            {React.cloneElement(<children.type></children.type>,
-            renderProps,
+
+    const list= items.map(item=>
+        <children.type key={i++}>
+            {React.cloneElement(<li></li>,
+            Object.assign(props,children.props),
             item)}
-        </li>
+        </children.type>
     );
 
     return (
         <ul className={styles}>
-            {nav}
+            {list}
         </ul>
     );
 }

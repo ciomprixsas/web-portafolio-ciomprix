@@ -1,18 +1,25 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Link({url,children,styles}) {
+export default function Link({url,children}) {
     const navigate = useNavigate();
-
-    console.info(children);
 
     const handleLinkOnClick=(url)=>{
         navigate(url);
     }
+
+    console.log(children);
+
+    const newChildren = 
+        <>
+        {React.cloneElement(
+            <children.type></children.type>,
+            Object.assign(children.props))}
+        </>
     
     return (
         <>
-        <a className={styles} onClick={handleLinkOnClick} href={url}>{children} </a>
+        {newChildren}
         </>
     );
 }
