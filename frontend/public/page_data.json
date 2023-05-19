@@ -1,12 +1,13 @@
 [
     {
     "Empresa":"Ciomprix",
-    "Logo":"/ciomprix_icon.png",
+    "Logo":"/assets/img/ciomprix_logo.png",
     "Categories":
         [{
             "title":"Capacitacion & Etech",
             "id":1,
             "url":"/capacitacion_&_etech",
+            "icon":"/assets/img/Categories/g568.png",
             "secciones":[
                 "Seccion 1",
                 "Seccion 2",
@@ -20,6 +21,7 @@
             "title":"Desarrollo web",
             "id":2,
             "url":"/desarrollo_web",
+            "icon":"/assets/img/Categories/g552.png",
             "secciones":[
                 "Seccion 1",
                 "Seccion 2",
@@ -33,6 +35,7 @@
             "title":"Contenidos elearning",
             "id":3,
             "url":"/contenidos_elearning",
+            "icon":"/assets/img/Categories/g520.png",
             "secciones":[
                 "Seccion 1",
                 "Seccion 2",
@@ -46,6 +49,7 @@
             "title":"Audio & Streaming",
             "id":4,
             "url":"/audio & streaming",
+            "icon":"/assets/img/Categories/g486.png",
             "secciones":[
                 "Seccion 1",
                 "Seccion 2",
