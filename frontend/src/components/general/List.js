@@ -2,20 +2,21 @@ import * as React from "react"
 
 export default function List({items,children,props,k,rprops}){
     
-    function listMaking (){
+    function listMaker(){
         let list= [];
         let rederProps ={...children.props,...props}
 
-        if(rprops!=undefined){
-            for(let kv of rprops){
-                console.log(kv[0]+""+kv[1])
-                rederProps = {...rederProps}
-            }
-        }
+        
 
 
         for(let item of items){
             //if(children.type=="li")rederProps.key=item[k]
+            if(rprops!=undefined||rprops!=null){
+                for(let kv of rprops){
+                    console.log(kv[0]+" "+item[kv[1]]);
+                    rederProps = {...rederProps,[kv[0]]:item[kv[1]]}
+                }
+            }
             list.push(React.cloneElement(<children.type/>,{...rederProps,key:item.id},item.title))
         }
 
@@ -24,11 +25,10 @@ export default function List({items,children,props,k,rprops}){
         return list
     }
 
-    const renderList = listMaking();
 
     return (
         <>
-            {renderList}
+            {listMaker()}
         </>
     )
         /*<children.type key={item.key}>

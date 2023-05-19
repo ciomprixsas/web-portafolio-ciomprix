@@ -22,7 +22,7 @@ body {
   height: 100vh;
   block-size: border-box;
   margin: 0;
-  font-family: 'Open Sans-Bold','Open Sans-Italic','Open Sans-Medium';
+  font-family: "Open Sans",'Open Sans-Bold','Open Sans-Italic','Open Sans-Medium';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
