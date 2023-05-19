@@ -3,7 +3,7 @@ import React, { useState , useEffect} from "react"
 const PageContex = React.createContext()
 
 export const PageProvider=(props)=>{
-    const [pageInfo,setPageInfo] = useState({})
+    const [pageInfo,setPageInfo] = useState()
 
     const getData = () =>{
         fetch('page_data.json')
@@ -12,6 +12,7 @@ export const PageProvider=(props)=>{
         })
         .then(function(myJson) {
             setPageInfo({...myJson[0]})
+            return myJson
         })
     }
 
