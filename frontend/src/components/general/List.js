@@ -1,19 +1,19 @@
-import * as React from "react";
+import * as React from "react"
 export default function List({styles,items,children,props}){
 
-    let i=0;
+    let i=0
 
     const list= items.map(item=>
-        <children.type key={i++}>
-            {React.cloneElement(<li></li>,
+        <li key={i++}>
+            {React.cloneElement(children.type,
             Object.assign(props,children.props),
             item)}
-        </children.type>
-    );
+        </li>
+    )
 
     return (
         <ul className={styles}>
             {list}
         </ul>
-    );
+    )
 }

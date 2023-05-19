@@ -7,5 +7,5 @@ export default function BgImage({src,styles,children}) {
             {children}
         </div>
         </>
-    );
+    )
 }

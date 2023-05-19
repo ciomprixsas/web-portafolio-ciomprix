@@ -1,1 +1,2 @@
-module.exports = global.tabIndex = 0;
+const tabIndex = 0
+export default tabIndex

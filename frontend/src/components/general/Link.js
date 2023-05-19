@@ -1,14 +1,14 @@
-import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import * as React from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Link({url,children}) {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleLinkOnClick=(url)=>{
-        navigate(url);
+        navigate(url)
     }
 
-    console.log(children);
+    console.log(children)
 
     const newChildren = 
         <>
@@ -21,5 +21,5 @@ export default function Link({url,children}) {
         <>
         {newChildren}
         </>
-    );
+    )
 }
