@@ -12,26 +12,27 @@ export default function Landing(){
     const {pageInfo} = usePageContext();
     //!(pageInfo===undefined) && console.log(pageInfo.Categories[0].sections)
 
+
     return (
         <>
-        <General.BgImage src={"/assets/img/landing_bg.svg"} props={{className:"w-screen landingBg"}}>
-            <General.Header/>
-            <main className='w-full relative z-20 text-white '>
-                <div className="px-48">
+        <General.BgImage src={"/assets/img/landing_bg.svg"} className="w-screen landingBg">
+            <General.Header mode="ligth"/>
+            <main className='w-full relative z-20 text-white px-48'>
                     <h1 className="text-6xl mt-48 openBold">Conoce nuestro <br/> portafolio de servicios</h1>
                     <h2 className="text-4xl mt-5 openMedium">La forma de generar aprendizaje <br/> más fácil</h2>
-                    <ul className="w-full grid grid-cols-4 gap-4 mt-44">
+                    <ul className="w-full grid mt-44 grid-flow-col">
                         {!(pageInfo===undefined) && 
-                            <General.List items={pageInfo.Categories} rprops={[["src","icon"],["key","id"]]} c={"title"}>
+                            <General.Cloner items={pageInfo.Categories} rprops={[["src","icon"],["key","id"],["children","title"]]}>
                                 <CategoryMiniCard />
-                            </General.List>
+                            </General.Cloner>
                         }
                     </ul>
-                </div>
                 {!(pageInfo===undefined) && 
-                    <CategoryCarousel title={"alsdhalj"} listProps={{items:pageInfo.Categories[0].sections,rprops:[["title","title"]]}} wItems="">
-                        <SectionCard src="/assets/img/imagedefaul.png"></SectionCard>
+                <General.Cloner items={pageInfo.Categories} rprops={[["title","title"],["key","id"]]}>
+                    <CategoryCarousel listProps={{items:pageInfo.Categories[0].sections,rprops:[["title","title"],["key","title"]]}} wItems="">
+                        <SectionCard src="/assets/img/imagedefaul.png" className="w-48"></SectionCard>
                     </CategoryCarousel>
+                </General.Cloner>
                 }
             </main>
         </General.BgImage>

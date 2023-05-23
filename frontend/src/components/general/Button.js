@@ -1,10 +1,18 @@
 import * as React from "react"
+import { useNavigate } from "react-router-dom"
 
-export default function Button({name,type}) {
-    
+export default function Button({href,className,children,onClick}) {
+    const bttn = <button className={`bttn ${className}`} onClick={onClick}>{children}</button>
     return (
         <>
-        <button className='bg-red-100 p-2 m-2 hover:bg-red-200 rounded-2xl'>{name}</button>
+        {href != undefined?
+        <a href={href}>
+            {bttn}
+        </a>
+        :
+            bttn
+        }
+        
         </>
     )
 }

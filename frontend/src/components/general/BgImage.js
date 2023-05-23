@@ -1,9 +1,9 @@
 
-export default function BgImage({src,props,children}) {
+export default function BgImage({src,className,children}) {
 
     return (
         <>
-        <div {...props} style={{backgroundImage:'url("'+src+'")'}}>
+        <div className={className} style={{backgroundImage:'url("'+src+'")'}} >
             {children}
         </div>
         </>
