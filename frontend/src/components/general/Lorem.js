@@ -1,6 +1,4 @@
-
 import React from "react"
-import { LoremIpsum, Avatar } from 'react-lorem-ipsum'
 import { loremIpsum, name, surname, fullname, username } from 'react-lorem-ipsum'
 
 export default function Lorem({long}) {

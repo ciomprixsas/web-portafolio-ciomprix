@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/*Declaracion de fuentes locales*/
 @font-face {
   font-family: 'Open Sans-Bold';
   src: url('../public/assets/fonts/OpenSans-Bold.ttf') format('truetype');
@@ -38,6 +40,7 @@ code {
   overflow-x:hidden;
 }
 
+/*Uso de fuentes*/
 .openBold{
   font-family: 'Open Sans-Bold';
 }
@@ -47,3 +50,41 @@ code {
 .openMedium{
   font-family: 'Open Sans-Medium';
 }
+
+.bg-resize{
+  background-size: 50% 50%;
+}
+
+/*Interaccion de secciones*/
+.section{
+  opacity: 0%;
+  transition: opacity 0.5s;
+}
+
+.section:hover{
+  opacity: 100%;
+  transition: opacity 2s;
+
+}
+
+.landingBg{
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.carrousel{
+  transition: left 3s;
+}
+/*
+@keyframes moveRight{
+  from{transform: translate(0px)}
+  to{transform: translate(100px)}
+}*/
+
+/*
+.carrouselBg{
+  height: 140px;
+  background: linear-gradient(to left, #912121 , #ffffff00 5%),
+              linear-gradient(to right, #912121 , #ffffff00 5%);
+}*/
+

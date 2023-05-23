@@ -2,10 +2,10 @@ import React, { useState , useEffect} from "react"
 
 const PageContex = React.createContext()
 
-export const PageProvider=(props)=>{
-    const [pageInfo,setPageInfo] = useState()
+export const PageProvider=(props)=>{//Crea contexto para lectura global al JSON
+    const [pageInfo,setPageInfo] = useState(undefined)
 
-    const getData = () =>{
+    const getData = () =>{//Lectura del JSON
         fetch('page_data.json')
         .then(function(response){
                 return response.json()
@@ -16,8 +16,8 @@ export const PageProvider=(props)=>{
         })
     }
 
-    useEffect(()=>{
-        getData()
+    useEffect(()=>{ 
+        if(pageInfo == undefined) getData()
     },[])
     
     const value = {
@@ -27,7 +27,7 @@ export const PageProvider=(props)=>{
     return <PageContex.Provider value={value} {...props}/>
 }
 
-export const usePageContext=()=>{
+export const usePageContext=()=>{//Funcion para acceder al JSON
     const contex = React.useContext(PageContex)
     if(!contex){
         throw new Error("No existe el contexto") 

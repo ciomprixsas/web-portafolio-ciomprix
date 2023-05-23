@@ -13,7 +13,7 @@ export default function Header({props}){
                 <nav className="w-full z-10">
                     <ul className="flex flex-row justify-end">
                         {!(pageInfo===undefined) && 
-                            <General.List items={pageInfo.Categories} k={"id"} props={{className:"mx-5"}}>
+                            <General.List items={pageInfo.Categories} props={{className:"mx-5"}} c={"title"}>
                                 <li/>
                             </General.List>
                         }
