@@ -9,9 +9,10 @@ import CategoryCarousel from "../components/CategoryCarousel"
 
 export default function Landing(){
     
-    const {pageInfo} = usePageContext();
+    const {pageInfo,pageInfoApi} = usePageContext();
     //!(pageInfo===undefined) && console.log(pageInfo.Categories[0].sections)
 
+    console.log(pageInfoApi)
 
     return (
         <>
