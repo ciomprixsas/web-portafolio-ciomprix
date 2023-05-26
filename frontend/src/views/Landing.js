@@ -12,7 +12,7 @@ export default function Landing(){
     const {pageInfo,pageInfoApi} = usePageContext();
     //!(pageInfo===undefined) && console.log(pageInfo.Categories[0].sections)
 
-    console.log(pageInfoApi)
+    //console.log(pageInfoApi)
 
     return (
         <>
@@ -30,7 +30,7 @@ export default function Landing(){
                     </ul>
                 {!(pageInfo===undefined) && 
                 <General.Cloner items={pageInfo.Categories} rprops={[["title","title"],["key","id"]]}>
-                    <CategoryCarousel listProps={{items:pageInfo.Categories[0].sections,rprops:[["title","title"],["key","title"]]}} wItems="">
+                    <CategoryCarousel listProps={{items:pageInfo.Categories[0].sections,rprops:[["title","title"],["key","title"]]}}>
                         <SectionCard src="/assets/img/imagedefaul.png" className="w-48"></SectionCard>
                     </CategoryCarousel>
                 </General.Cloner>

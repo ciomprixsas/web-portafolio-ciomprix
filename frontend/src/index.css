@@ -76,21 +76,6 @@ code {
   transition: left 3s;
 }
 
-.bttn{
-  transition: transform 1s;
-  transform: scale(1,1);
-
-  &:hover{
-    transform: scale(1.1,1.1)
-  }
-  &:active{
-    transform: scale(0.9,0.9)
-  }
-}
-
-.headerA{
-  transition: background-color 1s;
-}
 
 /*
 .carrouselBg{

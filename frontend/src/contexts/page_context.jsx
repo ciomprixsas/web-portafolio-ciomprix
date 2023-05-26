@@ -17,7 +17,7 @@ export const PageProvider = (props) => {
       .then(function (myJson) {
         setPageInfo({ ...myJson});
         return myJson;
-      });
+      })
   };
 
   const getDataApi = () => {
@@ -29,21 +29,21 @@ export const PageProvider = (props) => {
       })
       .catch(function (error) {
         console.error(error);
-      });
-  };
+      })
+  }
 
   useEffect(() => {
     getDataApi()
     if (pageInfo == undefined) getData();
-  }, []);
+  }, [])
 
   const value = {
     pageInfo,
     pageInfoApi
-  };
+  }
 
   return <PageContex.Provider value={value} {...props} />;
-};
+}
 
 export const usePageContext = () => {
   //Funcion para acceder al JSON

@@ -1,31 +1,25 @@
-import * as React from "react"
-import { redirect } from "react-router-dom";
+import * as React from 'react'
 
 export default function Cloner({items,children,props,rprops}){
-    let renderProps ={...children.props,...props}
+    //Inicializacion de pros hijos
+    let renderProps ={...children.props}
 
     const cloned = items.map((item)=>{
         if(rprops!=undefined||rprops!=null){
+            //Asignacion de props relativos a los items
             for(let kv of rprops){
-                //console.log(kv[0]+" "+item[kv[1]]);
                 renderProps = {...renderProps,[kv[0]]:item[kv[1]]}
             }
         }
+
         return(
             <children.type {...renderProps}/>
         )
     })
-    
-    //console.log(renderProps)
 
     return (
         <>
             {cloned}
         </>
     )
-        /*<children.type key={item.key}>
-            {React.cloneElement(children.type,
-            Object.assign(props,children.props),
-            item)}
-        </children.type>*/
 }
