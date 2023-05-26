@@ -37,6 +37,9 @@ export default function Landing(){
             </main>
         </General.BgImage>
         <General.Footer/>
+        <General.Modal state={true} className="w-[50vw]">
+                <General.Video url="/assets/vid/OPM_WP_3.mp4" className={`mt-3`}/>
+        </General.Modal>
         </>
     )
 }

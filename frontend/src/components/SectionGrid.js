@@ -4,7 +4,7 @@ import SectionCard from "./SectionCard";
 
 const SectionGrid = ({children,listProps,className}) => {
     return (
-        <mt>
+        <>
             <div className={className}>
                 <h3 className="text-2xl w-auto-min my-5">Learning Analytics</h3>
                 <hr className="border-black"/>
@@ -14,7 +14,7 @@ const SectionGrid = ({children,listProps,className}) => {
                     </General.Cloner>
                 </div>
             </div>
-        </mt>
+        </>
     );
 }
     export default SectionGrid

@@ -8,10 +8,10 @@ import SectionCard from "../components/SectionCard";
 const SectionView = ({categorie}) => {
     return (
         <>
-            <General.BgImage src={""} className="w-screen landingBg">
+            <General.BgImage src={"/assets/img/landing_bg.svg"} className="w-screen landingBg">
                 <General.Header mode="dark"/>
                 <main className='text-black mx-48'>
-                    <General.Button className={"my-10"}>
+                    <General.Button className={"my-10"} href={"/"}>
                         <FontAwesomeIcon icon={faArrowLeft} /> Volver
                     </General.Button>
                     <h1 className="text-5xl openBold w-1/3">Nuestras {categorie.title}</h1>

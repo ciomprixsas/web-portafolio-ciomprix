@@ -1,0 +1,118 @@
+import * as React from "react"
+import ReactPlayer from 'react-player'
+import { BsFillPlayFill,BsPauseFill } from "react-icons/bs";
+import { useState } from "react";
+import { useLinkClickHandler } from "react-router-dom";
+
+const VideoControls = ({
+    progress,
+    duration,
+    play,
+    fullscreen,
+    handlePlay,
+    handleProgressModify,
+    handleFullscreen}) =>{
+
+    const percentProgress = (progress/duration)*100
+
+    return(
+                <div className="absolute bottom-1 w-[99%] h-8 bg-black flex items-center px-4 rounded-full z-10">
+                    <button className="w-5 active:scale-125 transition-all durition-100" onClick={handlePlay}>
+                        {!play ?
+                        <BsFillPlayFill />:
+                        <BsPauseFill />
+                        }
+                        
+                    </button> 
+                    <div className="relative flex items-center w-full h-1 mx-3 bg-gray-700 rounded-full">
+                        <div className={`bg-red-600 absolute h-full rounded-full z-0`} style={{width:`${percentProgress}%`}}></div>
+                        <input type="range" min={0} max={1} value={percentProgress/100} step={0.01} className=" h-full w-full z-10 opacity-0" onChange={handleProgressModify}/>
+                    </div>
+                    
+                    <button className={`w-5 h-3 border-2 border-white transition-all durition-100 ${!fullscreen?"active:scale-125":"active:scale-75"}`} onClick={handleFullscreen}/>
+                </div>
+    )
+}
+
+
+const Video = ({url,className}) => {
+    const videoRef = React.useRef(null)
+
+    const [play,setPlay] = useState(true)
+    const [progress,setProgress] = useState(0)
+    const [duration,setDuration] = useState(0)
+    const [fullscreen,setFullscreen] = useState(false)
+
+    
+    const handlePlay= React.useCallback(() => setPlay(!play))
+
+    const handleProgressModify= React.useCallback((e) => {
+        const newProgress = e.target.value
+        console.log(videoRef.current.seekTo(newProgress,"fraction"))
+    })
+
+    const handleFullscreen = React.useCallback(()=>{
+        const video = videoRef.current
+        setFullscreen(!fullscreen)
+        /*
+        if(!fullscreen){
+            if(video.requestFullscreen){
+                video.requestFullscreen();
+            }
+            else if(video.webkitRequestFullscreen){
+                video.webkitRequestFullscreen()
+            }
+            else if(video.msRequestFullscreen){
+                video.msRequestFullscreen()
+            }
+        }
+        else{
+            if(document.fullscreenElement){
+                document.exitFullscreen()
+            }
+            else if(document.webkitRequestFullscreenElement){
+                document.webkitExitFullscreen()
+            }
+            else if(document.mozRequestFullscreenExit){
+                document.mozCancelFullscreen()
+            }
+        }*/
+    })
+
+    /*const handlePlaybackRangeChange = React.useCallback((e)=>{
+        
+    })*/
+    //setProgress(t.playedSeconds)
+
+    return (
+        <>
+            <div className={`flex items-center ${fullscreen?"fixed h-screen w-full top-0 left-0":"relative w-full"} ${className}`}>
+                <div className="flex items-center w-full flex-col relative" onClick={handlePlay}>
+                    <ReactPlayer 
+                        volume={0}
+                        playing={play}
+                        progressInterval={100}
+                        url={url} 
+                        className="z-0"
+                        width={`${100}%`}
+                        height={`${100}%`}  
+                        ref={videoRef}
+                        onProgress={(t)=>{setProgress(t.playedSeconds)}} 
+                        onDuration={(d)=>{setDuration(d)}}
+                    />
+                    <VideoControls 
+                        progress={progress}
+                        duration={duration}
+                        play={play}
+                        fullscreen={fullscreen}
+                        handlePlay={handlePlay}
+                        handleProgressModify={handleProgressModify}
+                        handleFullscreen={handleFullscreen} 
+                    />
+                    <img src="/assets/img/play.png" className={`absolute top-[40%] h-1/5 opacity-75 transition-all duration-100 active:scale-125 ${(play) && "invisible"}`} />
+                </div>
+            </div>
+        </>
+    );
+}
+    export default Video

@@ -33,7 +33,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/test" element={<CategoryMiniCard/>}/>
-          <Route path="/land" element={<Landing/>}/>
+          <Route path="/" element={<Landing/>}/>
           {sectionRoutes}
         </Routes>
       </BrowserRouter>
