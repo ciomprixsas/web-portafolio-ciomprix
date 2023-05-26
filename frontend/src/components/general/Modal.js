@@ -18,7 +18,11 @@ const Modal = ({children,state,className}) => {
                 <div className={`h-auto text-white ${className}`}>
                     <h3 className='openBold'>
                         Video
-                    <button className='float-right border-2 rounded-full px-2 openMedium border-white transition-all active:bg-white active:bg-opacity-50 ' onClick={closeModal}>Cerrar</button>
+                    <button 
+                        className='float-right border-2 rounded-full px-2 openMedium border-white transition-all active:bg-white active:bg-opacity-50 ' 
+                        onClick={closeModal}>
+                        Cerrar
+                    </button>
                     </h3>
                     {children}
                 </div>

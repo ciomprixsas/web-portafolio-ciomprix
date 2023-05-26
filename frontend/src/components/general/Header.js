@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as General from './GeneralModules'
 import { usePageContext } from '../../contexts/page_context'
 
-export default function Header({mode}){
+const Header = ({mode}) => {
 
     //Acceso al contexto de la pagina
     const {pageInfo,pageInfoApi} = usePageContext();
@@ -33,3 +33,5 @@ export default function Header({mode}){
         </>
     )
 }
+
+export default Header

@@ -1,7 +1,7 @@
 import React from 'react'
 import { loremIpsum, name, surname, fullname, username } from 'react-lorem-ipsum'
 
-export default function Lorem({long}) {
+ const Lorem = ({long}) => {
 
     const lorem = (l) =>{
         let text=loremIpsum()[0]
@@ -20,3 +20,4 @@ export default function Lorem({long}) {
     )
 }
 
+export default Lorem

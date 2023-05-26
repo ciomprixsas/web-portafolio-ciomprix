@@ -17,7 +17,10 @@ const VideoControls = ({//Componente de controles del video
 
     return(
                 <div className='absolute bottom-1 w-[99%] h-8 bg-black flex items-center px-4 rounded-full z-10'>
-                    <button className='w-5 active:scale-125 transition-all durition-100' onClick={(progress<duration)?handlePlay:handleReplay}>
+                    <button 
+                        className='w-5 active:scale-125 transition-all durition-100' 
+                        onClick={(progress<duration)?handlePlay:handleReplay}
+                    >
                         {progress<duration?(!play ?
                         <BsFillPlayFill />:
                         <BsPauseFill />):
@@ -26,11 +29,24 @@ const VideoControls = ({//Componente de controles del video
                         
                     </button> 
                     <div className='relative flex items-center w-full h-1 mx-3 bg-gray-700 rounded-full'>
-                        <div className={`bg-red-600 absolute h-full rounded-full z-0`} style={{width:`${percentProgress}%`}}></div>
-                        <input type='range' min={0} max={1} value={percentProgress/100} step={0.01} className=' h-full w-full z-10 opacity-0' onChange={handleProgressModify}/>
+                        <div 
+                        className={`bg-red-600 absolute h-full rounded-full z-0`} 
+                        style={{width:`${percentProgress}%`}}
+                        />
+                        <input 
+                            type='range' 
+                            min={0} 
+                            max={1} 
+                            value={percentProgress/100} 
+                            step={0.01} 
+                            className=' h-full w-full z-10 opacity-0' 
+                            onChange={handleProgressModify}/>
                     </div>
                     
-                    <button className={`w-5 h-3 border-2 border-white transition-all durition-100 ${!fullscreen?'active:scale-125':'active:scale-75'}`} onClick={handleFullscreen}/>
+                    <button 
+                        className={`w-5 h-3 border-2 border-white transition-all durition-100 ${!fullscreen?'active:scale-125':'active:scale-75'}`} 
+                        onClick={handleFullscreen}
+                    />
                 </div>
     )
 }
@@ -95,19 +111,20 @@ const Video = ({url,className}) => {//Componente principal
         <>
             <div className={`flex items-center ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full'} ${className}`}>
                 <div className='flex items-center w-full flex-col relative' >
-                    <ReactPlayer 
-                        volume={0}
-                        playing={play}
-                        progressInterval={100}
-                        url={url} 
-                        className='z-0'
-                        width={`${100}%`}
-                        height={`${100}%`}  
-                        ref={videoRef}
-                        onProgress={(t)=>{setProgress(t.playedSeconds)}} //Actualizacion de progreso
-                        onDuration={(d)=>{setDuration(d)}}
-                        onClick={handlePlay} 
-                    />
+                    <div onClick={handlePlay} className='w-full h-full'>
+                        <ReactPlayer 
+                            volume={0}
+                            playing={play}
+                            progressInterval={100}
+                            url={url} 
+                            className='z-0'
+                            width={`${100}%`}
+                            height={`${100}%`}  
+                            ref={videoRef}
+                            onProgress={(t)=>{setProgress(t.playedSeconds)}} //Actualizacion de progreso
+                            onDuration={(d)=>{setDuration(d)}}
+                        />
+                    </div>
                     <VideoControls 
                         progress={progress}
                         duration={duration}

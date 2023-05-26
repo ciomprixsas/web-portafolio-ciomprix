@@ -4,7 +4,7 @@ import { usePageContext } from "../contexts/page_context"
 //Componentes
 import * as General from "../components/general/GeneralModules"
 import CategoryMiniCard from "../components/CategoryMiniCard"
-import SectionCard from "../components/SectionCard"
+import SectionCard from "../components/SolutionCard"
 import CategoryCarousel from "../components/CategoryCarousel"
 
 export default function Landing(){

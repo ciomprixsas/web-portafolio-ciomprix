@@ -2,7 +2,7 @@ import * as React from 'react';
 import { usePageContext } from '../../contexts/page_context'
 
 
-export default function Footer({}){
+const Footer = ({}) => {
     const {pageInfo} = usePageContext();
     
     return (
@@ -14,5 +14,7 @@ export default function Footer({}){
                 </h6>
             </footer>
         </>
-    );
+    )
 }
+
+export default Footer

@@ -2,8 +2,8 @@ import * as React from "react";
 import * as General from "../components/general/GeneralModules";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
-import SectionGrid from "../components/SectionGrid";
-import SectionCard from "../components/SectionCard";
+import SectionGrid from "../components/SolutionGrid";
+import SectionCard from "../components/SolutionCard";
 
 const SectionView = ({categorie}) => {
     return (
