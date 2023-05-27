@@ -8,9 +8,6 @@ import CategoryCarousel from '../components/CategoryCarousel'
 const Landing = () => {
     
     const {pageInfo,pageInfoApi} = usePageContext();
-    //!(pageInfo===undefined) && console.log(pageInfo.Categories[0].sections)
-
-    //console.log(pageInfoApi)
 
     return (
         <>
@@ -28,7 +25,7 @@ const Landing = () => {
                     </ul>
                 {!(pageInfo===undefined) && 
                 <General.Cloner items={pageInfo.Categories} rprops={[['title','title'],['key','id'],['solutions','sections']]}>
-                    <CategoryCarousel/>
+                    <CategoryCarousel jump={4}/>
                 </General.Cloner>
                 }
             </main>
