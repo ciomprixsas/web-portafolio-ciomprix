@@ -3,7 +3,6 @@ import { usePageContext } from "../contexts/page_context"
 //Componentes
 import * as General from "../components/general/GeneralModules"
 import CategoryMiniCard from "../components/CategoryMiniCard"
-import SolutionCard from "../components/SolutionCard"
 import CategoryCarousel from "../components/CategoryCarousel"
 
 const Landing = () => {

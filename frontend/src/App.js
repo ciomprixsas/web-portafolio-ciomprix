@@ -1,14 +1,12 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import React,{ useEffect } from 'react'
 
 //Informacion de la pagina
 import { PageProvider,usePageContext} from './contexts/page_context'
 
 //Importacion de vistas
 import Landing from './views/Landing'
-import SectionView from './views/SectionView'
+import SolutionView from './views/SolutionView'
 
-export default () => <PageProvider><App/></PageProvider>
 
 function App() {
   const {pageInfo} = usePageContext()
@@ -19,7 +17,7 @@ function App() {
   if(pageInfo!=undefined) {
     sectionRoutes  = pageInfo.Categories.map(c=>{
       return(
-        <Route key={c.id} path={c.route} element={<SectionView categorie={c}/>}/>
+        <Route path={c.route} element={<SolutionView categorie={c}/>}/>
       )
       }
     )
@@ -37,4 +35,4 @@ function App() {
   )
 }
 
-
+export default () => <PageProvider><App/></PageProvider>

@@ -9,7 +9,7 @@ const Header = ({mode}) => {
     
     return (
         <>  
-            <header className={`flex items-center flex-row w-full h-32 px-24 bg-transparent text-sm openMedium ${(mode === 'ligth')?'text-white':'text-black'}`} >
+            <header className={`flex items-center flex-row w-full h-20 px-24  text-sm openMedium ${(mode === 'ligth')?'text-white bg-transparent':'text-black bg-gray-200'}`} >
                 {!(pageInfo===undefined) &&
                 <General.Link href='/'>
                     <img 
@@ -25,7 +25,7 @@ const Header = ({mode}) => {
                                 items={Object.values(pageInfoApi)} 
                                 rprops={[['href','route'],['children','name_solution'],['key','solution_id']]}
                             >
-                                <General.Link className={`px-5 h-full py-12 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-200'}`}/>
+                                <General.Link className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
                             </General.Cloner>
                         }
                 </nav>
