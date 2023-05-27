@@ -6,7 +6,6 @@ const Header = ({mode}) => {
 
     //Acceso al contexto de la pagina
     const {pageInfo,pageInfoApi} = usePageContext();
-    
     return (
         <>  
             <header className={`flex items-center flex-row w-full h-20 px-24  text-sm openMedium ${(mode === 'ligth')?'text-white bg-transparent':'text-black bg-gray-200'}`} >
@@ -23,7 +22,7 @@ const Header = ({mode}) => {
                         {!(pageInfoApi===undefined) && 
                             <General.Cloner //Generador de menu
                                 items={Object.values(pageInfoApi)} 
-                                rprops={[['href','route'],['children','name_solution'],['key','solution_id']]}
+                                rprops={[['href','route'],['children','name_solution'],['key','id_solution']]}
                             >
                                 <General.Link className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
                             </General.Cloner>

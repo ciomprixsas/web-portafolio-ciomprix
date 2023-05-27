@@ -17,7 +17,7 @@ function App() {
   if(pageInfo!=undefined) {
     sectionRoutes  = pageInfo.Categories.map(c=>{
       return(
-        <Route path={c.route} element={<SolutionView categorie={c}/>}/>
+        <Route key={c.id} path={c.route} element={<SolutionView categorie={c}/>}/>
       )
       }
     )
