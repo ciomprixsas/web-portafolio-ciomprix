@@ -40,6 +40,9 @@ code {
   overflow-x:hidden;
 }
 
+.hyphens{
+  hyphens:none;
+}
 /*Uso de fuentes*/
 .openBold{
   font-family: 'Open Sans-Bold';

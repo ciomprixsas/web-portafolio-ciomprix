@@ -9,13 +9,13 @@ const Header = ({mode}) => {
     
     return (
         <>  
-            <header className={`flex items-center flex-row w-full h-32 px-24 bg-transparent text-base openMedium ${(mode === 'ligth')?'text-white':'text-black'}`} >
+            <header className={`flex items-center flex-row w-full h-32 px-24 bg-transparent text-sm openMedium ${(mode === 'ligth')?'text-white':'text-black'}`} >
                 {!(pageInfo===undefined) &&
                 <General.Link href='/'>
                     <img 
                         src={(mode === 'ligth')?pageInfo.Logo[0]:pageInfo.Logo[1]} 
                         alt='logo' 
-                        className='h-1/4 w-auto z-10' 
+                        className='w-48 z-10' 
                     />
                 </General.Link>
                 }

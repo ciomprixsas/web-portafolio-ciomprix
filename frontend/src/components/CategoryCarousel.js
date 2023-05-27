@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as General from './general/GeneralModules';//Importacion de modulos generales
+import SolutionCard from './SolutionCard';
 
 //Exportacion de iconos
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -22,26 +23,26 @@ const CategoryCarousel = ({children,title,listProps}) => {
 
     return (
         <>
-            <div className='w-full my-8 text-black'>
-                <h3 className='text-2xl'>{'Nuestros '+title}</h3>
-                <div className='flex flex-row justify-end flex-nowrap h-8 my-2'>
+            <div className='w-full my-24 text-black'>
+                <h3 className='text-4xl'>{'Nuestros '+title}</h3>
+                <div className='flex flex-row flex-nowrap justify-end h-8 my-1'>
                     <button 
-                        className='px-3 mr-2 rounded bg-gray-400 text-white transition-all active:bg-gray-300' 
+                        className='px-3 mr-2 rounded bg-gray-500 text-white transition-all active:bg-gray-400' 
                         onClick={clickLeft} 
                     >
                         <FontAwesomeIcon icon={faChevronLeft}/>
                     </button>
                     <button 
-                        className='px-3 rounded bg-gray-400 text-white transition-all active:bg-gray-300' 
+                        className='px-3 rounded bg-gray-500 text-white transition-all active:bg-gray-400' 
                         onClick={clickRight}
                     >
                         <FontAwesomeIcon icon={faChevronRight}/>
                     </button>
                 </div>
                 <hr className='border-black'/>
-                <ul className={`grid grid-flow-col auto-cols-max gap-4 grap w-auto h-auto my-8 relative transition-[left] duration-300`} style={{left:`${translate*3*13}rem`}}>
+                <ul className={`grid grid-flow-col auto-cols-max gap-4 grap w-auto h-auto my-8 relative transition-[left] duration-[2s]`} style={{left:`${translate*3*13}rem`}}>
                     <General.Cloner {...listProps /*Generador de contenido*/}>
-                        {children}
+                        <SolutionCard src="/assets/img/imagedefaul.png" className="w-[250px] h-96"/>
                     </General.Cloner>
                 </ul>
             </div>
