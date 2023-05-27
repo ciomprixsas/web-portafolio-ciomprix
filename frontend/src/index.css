@@ -72,15 +72,3 @@ code {
   background-repeat: no-repeat;
 }
 
-.carrousel{
-  transition: left 3s;
-}
-
-
-/*
-.carrouselBg{
-  height: 140px;
-  background: linear-gradient(to left, #912121 , #ffffff00 5%),
-              linear-gradient(to right, #912121 , #ffffff00 5%);
-}*/
-

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as General from './general/GeneralModules';
 
-const SectionGrid = ({children,listProps,className}) => {
+const SolutionGrid = ({children,listProps,className}) => {
     return (
         <>
             <div className={className}>
@@ -16,4 +16,4 @@ const SectionGrid = ({children,listProps,className}) => {
         </>
     );
 }
-    export default SectionGrid
+export default SolutionGrid

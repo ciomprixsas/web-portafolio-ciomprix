@@ -1,8 +1,5 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import React,{ useEffect } from 'react'
-import Test from './views/Test'
-import CategoryMiniCard from './components/CategoryMiniCard'
-import Cloner from './components/general/Cloner'
 
 //Informacion de la pagina
 import { PageProvider,usePageContext} from './contexts/page_context'
@@ -32,7 +29,6 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/test" element={<CategoryMiniCard/>}/>
           <Route path="/" element={<Landing/>}/>
           {sectionRoutes}
         </Routes>

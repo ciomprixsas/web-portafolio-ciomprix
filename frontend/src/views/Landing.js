@@ -4,10 +4,10 @@ import { usePageContext } from "../contexts/page_context"
 //Componentes
 import * as General from "../components/general/GeneralModules"
 import CategoryMiniCard from "../components/CategoryMiniCard"
-import SectionCard from "../components/SolutionCard"
+import SolutionCard from "../components/SolutionCard"
 import CategoryCarousel from "../components/CategoryCarousel"
 
-export default function Landing(){
+const Landing = () => {
     
     const {pageInfo,pageInfoApi} = usePageContext();
     //!(pageInfo===undefined) && console.log(pageInfo.Categories[0].sections)
@@ -31,7 +31,7 @@ export default function Landing(){
                 {!(pageInfo===undefined) && 
                 <General.Cloner items={pageInfo.Categories} rprops={[["title","title"],["key","id"]]}>
                     <CategoryCarousel listProps={{items:pageInfo.Categories[0].sections,rprops:[["title","title"],["key","title"]]}}>
-                        <SectionCard src="/assets/img/imagedefaul.png" className="w-48"></SectionCard>
+                        <SolutionCard src="/assets/img/imagedefaul.png" className="w-48"/>
                     </CategoryCarousel>
                 </General.Cloner>
                 }
@@ -44,3 +44,5 @@ export default function Landing(){
         </>
     )
 }
+
+export default Landing
