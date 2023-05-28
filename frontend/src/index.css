@@ -2,11 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/*Declaracion de fuentes locales*/
+@font-face {
+  font-family: 'Open Sans-Bold';
+  src: url('../public/assets/fonts/OpenSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans-Italic';
+  src: url('../public/assets/fonts/OpenSans-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans-Medium';
+  src: url('../public/assets/fonts/OpenSans-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
 body {
+  width: 100vw;
+  height: 100vh;
+  block-size: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Open Sans",'Open Sans-Bold','Open Sans-Italic','Open Sans-Medium';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,4 +32,56 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root{
+  width: 100vw;
+  height: 100vh;
+  overflow-x:hidden;
+}
+
+.hyphens{
+  hyphens:none;
+}
+/*Uso de fuentes*/
+.openBold{
+  font-family: 'Open Sans-Bold';
+}
+.openItalic{
+  font-family: 'Open Sans-Italic';
+}
+.openMedium{
+  font-family: 'Open Sans-Medium';
+}
+
+.bg-resize{
+  background-size: 50% 50%;
+}
+
+/*Interaccion de secciones*/
+.section{
+  opacity: 0%;
+  transition: opacity 0.5s;
+}
+
+.section:hover{
+  opacity: 100%;
+  transition: opacity 2s;
+
+}
+
+.landingBg{
+  background-size: auto 14%;
+  background-position: 70% 0%;
+}
+
+.grid-repeat\[a\]{
+    grid-template-columns: repeat(a,25%);
+}
+
+@media (min-width: 1024px) {
+  .landingBg{
+    background-position: auto;
+    background-size: 100% auto;
+  }
 }
