@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import * as General from './general/GeneralModules';//Importacion de modulos generales
 import SolutionCard from './SolutionCard';
 
@@ -8,10 +8,13 @@ import {faChevronLeft,faChevronRight} from '@fortawesome/free-solid-svg-icons'
 
 
 const CategoryCarousel = ({title,solutions,jump}) => {
-
-
     const [translate, setTranslate] = useState(0)
     const [touched, setTouched] = useState(null)
+    //const [widthItems,setWidthItems] = useState(0)
+
+    const parentUl = useRef(null)
+    let widthItems
+
     const lim=solutions.length/jump-1
     let xInit;
 
@@ -49,13 +52,17 @@ const CategoryCarousel = ({title,solutions,jump}) => {
             }
         })
     }
+
+    useEffect(()=>{
+        if(parentUl.current.offsetWidth!=widthItems)widthItems=(Math.floor((parentUl.current.offsetWidth-(16*4))/4))
+    })
     
     return (
         <>
             <div className='w-full my-24 text-black'>
-                <h3 className='text-4xl'>{'Nuestros '+title}</h3>
-                <div className='flex flex-row flex-nowrap justify-end h-8 my-1'>
-                    {(solutions.length>4 || global.naveType === "movile"/*Identificador de dispositivo*/)&&
+                <h3 className='text-3xl lg:text-4xl'>{'Nuestros '+title}</h3>
+                <div className='flex flex-row flex-nowrap justify-end h-0 my-1 lg:h-8'>
+                    {(solutions.length>4 || global.naveType === "computer"/*Identificador de dispositivo*/)&&
                     <>
                     <button 
                         className='px-3 mr-2 rounded bg-gray-500 text-white transition-all active:bg-gray-400' 
@@ -74,13 +81,14 @@ const CategoryCarousel = ({title,solutions,jump}) => {
                 </div>
                 <hr className='border-black'/>
                 <ul 
-                    className={`grid grid-flow-col auto-cols-max gap-4 grap w-auto h-auto my-8 relative transition-[left] duration-[2s]`} 
-                    style={{left:`${-translate*265*jump}px`}}
+                    className={`grid grid-flow-col auto-cols-max gap-4 grap w-auto h-auto my-8 relative transition-[left] duration-700 lg:duration-[2s]`} 
+                    style={{left:`${-translate*(widthItems+15)*jump}px`}}
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
+                    ref={parentUl}
                 >
                     <General.Cloner items={solutions} rprops={[['title','title'],['key','id']]}>
-                        <SolutionCard src='/assets/img/imagedefaul.png' className='w-[250px] h-96'/>
+                        <SolutionCard src='/assets/img/imagedefaul.png' className={`w-[360px] h-[600px] lg:h-96`}/>
                     </General.Cloner>
                 </ul>
             </div>
