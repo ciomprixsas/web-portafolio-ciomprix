@@ -1,5 +1,5 @@
 import { usePageContext } from '../contexts/page_context'
-import { useRef,useEffect } from 'react'
+import { useRef,useEffect, useState, useCallback } from 'react'
 
 //Componentes
 import * as General from '../components/general/GeneralModules'
@@ -12,11 +12,15 @@ const Landing = () => {
     
     const widthBgRef = useRef(null)
 
+    const [modal,setModal] = useState(false)
+
     useEffect(()=>{
         if(widthBgRef.current.offsetWidth!=undefined) global.widthPage = (widthBgRef.current.offsetWidth)
     })
 
     console.warn(global.widthPage)
+
+    const buttonAlert = useCallback(()=>{alert("button")})
 
     return (
         <>
@@ -26,6 +30,7 @@ const Landing = () => {
         >
             <General.Header mode='ligth'/>
             <main className='w-full relative z-20 text-white px-4 lg:px-48' ref={widthBgRef}>
+                    <General.Link mode="event" href={buttonAlert}>Button</General.Link>
                     <h1 className='text-4xl mt-10 openBold pl-2 lg:mt-28 lg:text-5xl lg:w-7/12  lg:p-0'>Conoce nuestro portafolio de servicios</h1>
                     <h2 className='text-3xl openMedium pl-2 lg:mt-5 lg:text-4xl lg:w-7/12 lg:p-0'>La forma de generar aprendizaje más fácil</h2>
                     <ul className='grid mt-44 grid-cols-2 gap-4 flex-wrap w-full lg:grid-cols-4'>
@@ -43,9 +48,10 @@ const Landing = () => {
             </main>
         </General.BgImage>
         <General.Footer/>
-        <General.Modal state={false} className='w-[50vw]'>
-                <General.Video url='/assets/vid/OPM_WP_3.mp4' className={`mt-3`}/>
-        </General.Modal>
+        
+        <General.Modal state={modal} className='w-[50vw]'>
+                    <General.Video url='/assets/vid/OPM_WP_3.mp4' className={`mt-3`}/>
+            </General.Modal>
         </>
     )
 }

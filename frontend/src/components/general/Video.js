@@ -66,7 +66,7 @@ const Video = ({url,className}) => {//Componente principal
     const handlePlay= useCallback(() => setPlay(!play))
 
     //Control manual de progreso
-    const handleReplay= useCallback(() => {
+    const handleReplay = useCallback(() => {
         setProgress(0)
         videoRef.current.seekTo(0,'fraction')
         setPlay(true)
@@ -80,7 +80,6 @@ const Video = ({url,className}) => {//Componente principal
 
     //Control de pantalla completa
     const handleFullscreen = useCallback(()=>{
-        const video = videoRef.current
         setFullscreen(!fullscreen)
         /*
         if(!fullscreen){
