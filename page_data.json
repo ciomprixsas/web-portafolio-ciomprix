@@ -1,8 +1,8 @@
 {
   "Company": "Ciomprix",
   "Logo": [
-    "/assets/img/ciomprix_logo.png",
-    "/assets/img/ciomprix_logo_dark.png"
+    "/web-portafolio-ciomprix/assets/img/ciomprix_logo.png",
+    "/web-portafolio-ciomprix//assets/img/ciomprix_logo_dark.png"
   ],
   "Categories": [
     {
