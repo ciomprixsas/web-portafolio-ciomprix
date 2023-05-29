@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as General from './GeneralModules'
 import { usePageContext } from '../../contexts/page_context'
 
+export const BASE_URL = process.env.REACT_APP_URL;
+
 const Header = ({mode}) => {
 
     //Acceso al contexto de la pagina
@@ -16,9 +18,9 @@ const Header = ({mode}) => {
                 } 
              >
                 {!(pageInfo===undefined) &&
-                <General.Link href='/'>
+                <General.Link href='/' className={BASE_URL}>
                     <img 
-                        src={(mode === 'ligth')?pageInfo.Logo[0]:pageInfo.Logo[1]} 
+                        src={(mode === 'ligth')? BASE_URL + pageInfo.Logo[0]: BASE_URL + pageInfo.Logo[1]} 
                         alt='logo' 
                         className='w-36 z-10 lg:w-48' 
                     />

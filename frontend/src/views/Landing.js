@@ -6,6 +6,8 @@ import * as General from '../components/general/GeneralModules'
 import CategoryMiniCard from '../components/CategoryMiniCard'
 import CategoryCarousel from '../components/CategoryCarousel'
 
+export const BASE_URL = process.env.REACT_APP_URL;
+
 const Landing = () => {
 
     const {pageInfo,pageInfoApi} = usePageContext();
@@ -21,7 +23,7 @@ const Landing = () => {
     return (
         <>
         <General.BgImage 
-            src={(global.naveType==="movile"  || global.widthPage>450)?('/assets/img/landing_bgmini.svg'):('/assets/img/landing_bg.svg')} 
+            src={(global.naveType==="movile"  || global.widthPage>450)? (BASE_URL + '/assets/img/landing_bgmini.svg'):( BASE_URL + '/assets/img/landing_bg.svg')} 
             className='w-screen bg-no-repeat landingBg'
         >
             <General.Header mode='ligth'/>
