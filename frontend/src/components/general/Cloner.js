@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-export default function Cloner({items,children,props,rprops}){
+export default function Cloner({items,children,childrenProps,rprops}){
     //Inicializacion de pros hijos
-    let renderProps ={...children.props}
+    let renderProps ={...children.props,childrenProps}
 
     const cloned = items.map((item)=>{
         if(rprops!=undefined||rprops!=null){

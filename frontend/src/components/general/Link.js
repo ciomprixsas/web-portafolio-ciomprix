@@ -21,7 +21,6 @@ const Link = ({href,mode,className,children}) => {
         case 'event':eventProp = {onClick:href} //Ejecucion de una funcion
     }
             
-
     return (
         <>
             <a className={`cursor-pointer ${className}`} {...eventProp}>

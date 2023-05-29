@@ -9,18 +9,17 @@ import {faChevronLeft,faChevronRight} from '@fortawesome/free-solid-svg-icons'
 
 const CategoryCarousel = ({title,solutions,jump}) => {
     const [translate, setTranslate] = useState(0)
-    const [touched, setTouched] = useState(null)
     //const [widthItems,setWidthItems] = useState(0)
 
-    const parentUl = useRef(null)
+    const widthRef = useRef(null)
     let widthItems
 
+
     const lim=solutions.length/jump-1
-    let xInit;
+    let xInit
 
     //Funciones de movimiento
     const clickLeft = () => {
-        setTouched(false)
         if(translate>0){ 
             if(translate<1)setTranslate(0)
             else setTranslate(translate-1)
@@ -28,7 +27,6 @@ const CategoryCarousel = ({title,solutions,jump}) => {
     }
 
     const clickRight = () => {
-        setTouched(false)
         if(lim-translate<1)setTranslate(translate+(lim-translate))
         else setTranslate(translate+1)
         
@@ -37,7 +35,6 @@ const CategoryCarousel = ({title,solutions,jump}) => {
     //Controles touch
     const handleTouchStart = (e) =>{
         [...e.changedTouches].map(touch=>{
-            setTouched(true)
             xInit=touch.pageX
         })
     }
@@ -53,15 +50,20 @@ const CategoryCarousel = ({title,solutions,jump}) => {
         })
     }
 
+
     useEffect(()=>{
-        if(parentUl.current.offsetWidth!=widthItems)widthItems=(Math.floor((parentUl.current.offsetWidth-(16*4))/4))
+        if(widthRef.current!=undefined) {
+            widthItems=(Math.floor((widthRef.current.offsetWidth-(16*3))/3))
+            console.log(widthItems)
+        }
     })
     
     return (
         <>
-            <div className='w-full my-24 text-black'>
+            <div className='w-full my-24 text-black' ref={widthRef}>
                 <h3 className='text-3xl lg:text-4xl'>{'Nuestros '+title}</h3>
-                <div className='flex flex-row flex-nowrap justify-end h-0 my-1 lg:h-8'>
+                <div className='flex flex-row flex-nowrap justify-end h-0 my-1 lg:h-8' 
+                    >
                     {(solutions.length>4 || global.naveType === "computer"/*Identificador de dispositivo*/)&&
                     <>
                     <button 
@@ -85,10 +87,9 @@ const CategoryCarousel = ({title,solutions,jump}) => {
                     style={{left:`${-translate*(widthItems+15)*jump}px`}}
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
-                    ref={parentUl}
                 >
                     <General.Cloner items={solutions} rprops={[['title','title'],['key','id']]}>
-                        <SolutionCard src='/assets/img/imagedefaul.png' className={`w-[360px] h-[600px] lg:h-96`}/>
+                        <SolutionCard src='/assets/img/imagedefaul.png' className={`w-[${widthItems}] h-[600px] lg:h-96`}/>
                     </General.Cloner>
                 </ul>
             </div>
