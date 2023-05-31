@@ -6,6 +6,6 @@ import Lorem from './Lorem'
 import Modal from './Modal'
 import Cloner from './Cloner'
 import Video from './Video'
-import Link from './Link'
+import Trigger from './Trigger'
 
-export {BgImage,Footer,Header,Lorem,Modal,Cloner,Link,Video}
+export {BgImage,Footer,Header,Lorem,Modal,Cloner,Trigger,Video}

@@ -1,17 +1,19 @@
 import * as React from 'react';
 import * as General from "./general/GeneralModules";
 
-const CategoryMiniCard = ({src,children}) => {
+export const BASE_URL = process.env.REACT_APP_URL;
+
+const CategoryMiniCard = ({src,children,href}) => {
     return (
         <>
-            <General.Link mode="literal">
+            <General.Trigger href={'#'+href}>
                 <div className='w-full h-full  p-4 rounded-xl bg-blue-900 lg:p-5'>
-                    <img src={src} className='w-1/2 lg:w-5/12'/>
-                    <h3 className='w-4/5 mt-2 text-xl openMedium lg:text-2xl lg:w-2/3'>
+                    <img src={BASE_URL + src} className='w-1/2 lg:w-5/12'/>
+                    <h3 className='w-4/5 mt-2 text-left text-xl openMedium lg:text-2xl'>
                         {children}
                     </h3>
                 </div>
-            </General.Link>
+            </General.Trigger>
         </>
     );
 }

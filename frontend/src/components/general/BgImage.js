@@ -1,3 +1,4 @@
+export const BASE_URL = process.env.REACT_APP_URL;
 
 export default function BgImage({src,className,children}) {
 

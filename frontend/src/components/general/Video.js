@@ -2,6 +2,7 @@ import ReactPlayer from 'react-player'//Importacion de componente de video
 import { BsFillPlayFill,BsPauseFill } from 'react-icons/bs';
 import { TbReload } from 'react-icons/tb';
 import { useState,useCallback,useRef } from 'react';
+import { BASE_URL } from './BgImage';
 
 const VideoControls = ({//Componente de controles del video
     progress,
@@ -81,29 +82,6 @@ const Video = ({url,className}) => {//Componente principal
     //Control de pantalla completa
     const handleFullscreen = useCallback(()=>{
         setFullscreen(!fullscreen)
-        /*
-        if(!fullscreen){
-            if(video.requestFullscreen){
-                video.requestFullscreen();
-            }
-            else if(video.webkitRequestFullscreen){
-                video.webkitRequestFullscreen()
-            }
-            else if(video.msRequestFullscreen){
-                video.msRequestFullscreen()
-            }
-        }
-        else{
-            if(document.fullscreenElement){
-                document.exitFullscreen()
-            }
-            else if(document.webkitRequestFullscreenElement){
-                document.webkitExitFullscreen()
-            }
-            else if(document.mozRequestFullscreenExit){
-                document.mozCancelFullscreen()
-            }
-        }*/
     })
 
     return (
@@ -135,7 +113,7 @@ const Video = ({url,className}) => {//Componente principal
                         handleReplay={handleReplay}
                     />
                     <img 
-                        src='/assets/img/play.png' 
+                        src={`${BASE_URL}/assets/img/play.png`}
                         className={`absolute top-[40%] h-1/5 opacity-75 transition-all duration-100 active:scale-125 ${(play) && 'invisible'}`} 
                         onClick={handlePlay} 
                     />
