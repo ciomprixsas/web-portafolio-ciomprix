@@ -9,12 +9,12 @@ import {faChevronLeft,faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import { usePageContext } from '../contexts/page_context';
 
 
-const CategoryCarousel = ({title,id,jump,name}) => {
+const CategoryCarousel = ({title,id,jump,href}) => {
     const {width,heigth} = useScreenSize()
 
     const {getCategoriesBySolution} = usePageContext()
 
-    const [widthItems,setWidthItems] = useState(300)
+    const [widthItems,setWidthItems] = useState()
     const [translate, setTranslate] = useState(0)
     const [categories, setCategories] = useState()
 
@@ -49,10 +49,10 @@ const CategoryCarousel = ({title,id,jump,name}) => {
     const handleTouchMove = (e) => {
         [...e.changedTouches].map(touch=>{
             if(touch.pageX<xInit && translate < lim){
-                setTranslate(translate + (0.5))
+                setTranslate(translate + 1)
             }
             else if(touch.pageX>xInit && translate >0){
-                setTranslate(translate - (0.5))
+                setTranslate(translate - 1)
             }
         })
     }
@@ -69,7 +69,7 @@ const CategoryCarousel = ({title,id,jump,name}) => {
     
     return (
         <>
-            <div className='w-full my-24 text-black' ref={widthUsableRef} name={name}>
+            <div className='w-full my-24 text-black' ref={widthUsableRef} id={href}>
                 <h3 className='text-3xl lg:text-4xl'>{'Nuestros '+title}</h3>
                 <div className={`flex flex-row flex-nowrap justify-end my-1 h-8`}
                     >
@@ -91,18 +91,18 @@ const CategoryCarousel = ({title,id,jump,name}) => {
                     }
                 </div>
                 <hr className='border-black'/>
+                {categories!=undefined &&
                 <ul 
                     className={`grid grid-flow-col auto-cols-max gap-4 grap w-auto h-auto my-8 relative transition-[left] duration-700 lg:duration-[2s]`} 
                     style={{left:`${-translate*(widthItems+15)*jump}px`}}
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
                 >
-                {categories!=undefined &&
                     <General.Cloner items={Object.values(categories)} rprops={[['key','id_category'],['id','id_category'],['title','name_category']]}>
-                        <SolutionCard className={`w-[250px] h-64`}/>
+                        <SolutionCard className={`h-64`} width={widthItems} solutionHref={href}/>
                     </General.Cloner>
-                }
-                </ul>
+                
+                </ul>}
             </div>
         </>
     );

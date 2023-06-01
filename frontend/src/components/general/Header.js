@@ -18,7 +18,7 @@ const Header = ({mode}) => {
                     ${(mode === 'ligth')?'text-white bg-transparent':'text-black bg-gray-200'} lg:px-24`
                 } 
              >
-                <General.Trigger href='/' className={BASE_URL}>
+                <General.Trigger className={BASE_URL}>
                     <img 
                         src={(mode === 'ligth')? BASE_URL + '/assets/img/ciomprix_logo.png': BASE_URL + '/assets/img/ciomprix_logo_dark.png'} 
                         alt='logo' 

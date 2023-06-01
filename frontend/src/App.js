@@ -23,7 +23,7 @@ function App() {
   if(solutions!=undefined) {
     categoryRoutes  = Object.values(solutions).map(c=>{
       return(
-        <Route key={c.id_solution} path={"/"+c.name_solution} element={<SolutionView categorie={c}/>}/>
+        <Route key={c.id_solution} path={c.name_solution} element={<SolutionView ID={c.id_solution} title={c.tittle_solution}/>}/>
       )
       }
     )
@@ -41,4 +41,6 @@ function App() {
   )
 }
 
-export default () => <PageProvider><App/></PageProvider>
+export default () => {
+  return<PageProvider><App/></PageProvider>
+}

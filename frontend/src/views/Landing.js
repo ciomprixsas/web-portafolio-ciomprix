@@ -6,7 +6,6 @@ import * as General from '../components/general/GeneralModules'
 import CategoryMiniCard from '../components/CategoryMiniCard'
 import CategoryCarousel from '../components/CategoryCarousel'
 import useScreenSize from '../hooks/useScreenSize'
-import SolutionCard from '../components/SolutionCard'
 
 
 export const BASE_URL = process.env.REACT_APP_URL;
@@ -14,15 +13,14 @@ export const BASE_URL = process.env.REACT_APP_URL;
 
 const Landing = () => {
 
-    const {width,heigth} = useScreenSize()
+    const {width} = useScreenSize()
 
     const {solutions} = usePageContext()
-
 
     return (
         <>
         <General.BgImage 
-            src={(global.naveType==="movile"  || width<450)? (BASE_URL+'/assets/img/landing_bgmini.svg'):(BASE_URL+'/assets/img/landing_bg.svg' )} 
+            src={(global.naveType==="movile"  || width<1000)? (BASE_URL+'/assets/img/landing_bgmini.svg'):(BASE_URL+'/assets/img/landing_bg.svg' )} 
             className='w-screen bg-no-repeat landingBg'
         >
         <General.Header mode="ligth"/>
@@ -32,13 +30,13 @@ const Landing = () => {
                     <ul className='grid mt-44 grid-cols-2 gap-4 flex-wrap w-full lg:grid-cols-4'>
                         {!(solutions===undefined) && 
                             <General.Cloner items={Object.values(solutions)} rprops={[['key','id_solution'],['children','tittle_solution'],['href','name_solution']]}>
-                                <CategoryMiniCard src={'/assets/img/Categories/g486.png'}/>
+                                <CategoryMiniCard src={BASE_URL + '/assets/img/Categories/g486.png'}/>
                             </General.Cloner>
                         }
                     </ul>
                 {!(solutions===undefined) && 
-                <General.Cloner items={Object.values(solutions)} rprops={[['title','tittle_solution'],['id','id_solution']]}>
-                    <CategoryCarousel jump={4}/>
+                <General.Cloner items={Object.values(solutions)} rprops={[['key','id_solution'],['title','tittle_solution'],['id','id_solution'],['href','name_solution']]}>
+                    <CategoryCarousel jump={(width<600?1:4)}/>
                 </General.Cloner>
                 }
             </main>
