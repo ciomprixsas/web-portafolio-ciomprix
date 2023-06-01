@@ -9,7 +9,7 @@ import SolutionView from './views/SolutionView'
 
 
 function App() {
-  const {pageInfo} = usePageContext()
+  const {solutions} = usePageContext()
 
   /*Identificador de dispositivo*/
   if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
@@ -18,12 +18,12 @@ function App() {
     global.naveType="computer"
   }
 
-  let sectionRoutes 
+  let categoryRoutes 
 
-  if(pageInfo!=undefined) {
-    sectionRoutes  = pageInfo.Categories.map(c=>{
+  if(solutions!=undefined) {
+    categoryRoutes  = Object.values(solutions).map(c=>{
       return(
-        <Route key={c.id} path={c.route} element={<SolutionView categorie={c}/>}/>
+        <Route key={c.id_solution} path={c.name_solution} element={<SolutionView ID={c.id_solution} title={c.tittle_solution}/>}/>
       )
       }
     )
@@ -34,11 +34,13 @@ function App() {
       <BrowserRouter basename={window.location.pathname || ''}>
         <Routes>
           <Route path="/" element={<Landing/>}/>
-          {sectionRoutes}
+          {categoryRoutes}
         </Routes>
       </BrowserRouter>
     </>
   )
 }
 
-export default () => <PageProvider><App/></PageProvider>
+export default () => {
+  return<PageProvider><App/></PageProvider>
+}

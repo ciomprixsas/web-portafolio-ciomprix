@@ -5,10 +5,9 @@ const PageContex = React.createContext();
 
 export const PageProvider = (props) => {
   //Crea contexto para lectura global al JSON
-  const [pageInfo, setPageInfo] = useState(undefined);
-  const [pageInfoApi, setPageInfoApi] = useState(undefined);
+  const [solutions, setSolutions] = useState(undefined);
 
-  const getData = () => {
+  /*const getData = () => {
     //Lectura del JSON
     fetch("page_data.json")
       .then(function (response) {
@@ -18,28 +17,37 @@ export const PageProvider = (props) => {
         setPageInfo({ ...myJson});
         return myJson;
       })
-  };
+  };*/
 
-  const getDataApi = () => {
-    //Lectura del JSON
+  const pageApi = axios.create({
+    baseURL: 'https://test-api-ciom-production.up.railway.app/api/'
+  })
+
+  const getSolutions = () => {
     axios
       .get("https://test-api-ciom-production.up.railway.app/api/solutions")
       .then(function (response) {
-        setPageInfoApi({...response.data})
-      })
+        setSolutions({...response.data})
+      }).then()
       .catch(function (error) {
         console.error(error);
       })
   }
 
-  useEffect(() => {
-    getDataApi()
-    if (pageInfo == undefined) getData();
-  }, [])
+  const getCategoriesBySolution = async (id,setter) => {
+    setter((await pageApi.get('categoriesBySolution/'+id)).data)
+  }
+
+  const getStorageByCategory = async (id,setter) => {
+    setter((await pageApi.get('storagesByCategory/'+id)).data)
+  }
+
+  useEffect(()=>{
+    getSolutions()
+  },[])
 
   const value = {
-    pageInfo,
-    pageInfoApi
+    solutions,getCategoriesBySolution,getStorageByCategory
   }
 
   return <PageContex.Provider value={value} {...props} />;
