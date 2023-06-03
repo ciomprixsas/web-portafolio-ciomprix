@@ -1,7 +1,7 @@
 import {useCallback,useEffect,useState} from "react"
 //Importacion de componentes
 import * as General from "../components/general/GeneralModules"
-import SolutionGrid from "../components/SolutionGrid"
+import ContentGrid from "../components/ContentGrid"
 
 //Importacion de iconos
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -12,20 +12,19 @@ import useScreenSize from '../hooks/useScreenSize'
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
-const SolutionView = ({ID,title}) => {
-    const [id,setId] = useState(ID)   
-
+const SolutionView = ({title,category,description}) => {
     const {width,heigth} = useScreenSize()
 
-    const {getCategoriesBySolution} = usePageContext()
+    const {getStorage} = usePageContext()
     
-    const [categories, setCategories] = useState(undefined)
+    const [storage,setStorage] = useState()
 
-    const settingCategories = useCallback((a) => setCategories(a))
+    const setData = async() => {
+        let a=await getStorage(category.id_category)
+        setStorage(a)
+    }
 
-    useEffect(()=>{
-        if(categories===undefined)getCategoriesBySolution(id,settingCategories)
-    },[])
+    if(storage===undefined)setData()
 
     return (
         <>
@@ -34,7 +33,7 @@ const SolutionView = ({ID,title}) => {
                 className='w-screen bg-no-repeat bg-gray-700 landingBg'
             >
                 <General.Header mode="dark"/>
-                <main className='text-black relative z-20 pb-16 text-white px-4 lg:px-48'>
+                <main className='text-black relative z-20 pb-16 text-white px-4 lg:px-16 xl:px-28 2xl:px-48' >
                     <General.Trigger 
                         className={"inline-block my-8 ml-4 transition-all duration-200 hover:scale-110 active:scale-90 lg:ml-0"} 
                         href={"/"}
@@ -42,9 +41,10 @@ const SolutionView = ({ID,title}) => {
                     >
                         <FontAwesomeIcon icon={faArrowLeft} />  Volver
                     </General.Trigger>
-                    <h1 className="w-3/4 text-4xl ml-4 openBold lg:w-1/4 lg:ml-0 lg:text-5xl">Nuestras {title}</h1>
-                    {!(categories===undefined)&&
-                    <SolutionGrid className={`mt-52`} items={Object.values(categories)}/>
+                    <h1 className="w-3/4 text-4xl ml-4 openBold lg:w-1/4 lg:ml-0 lg:text-5xl">{title}</h1>
+                    <p className="w-3/4 mt-6 ml-4 text-xl openMedium lg:w-1/4 lg:ml-0 lg:text-2xl">{description}</p>
+                    {!(storage===undefined)&&
+                    <ContentGrid className={`mt-52`} storage={storage} title={category.tittle_category}/>
                     }
                 </main>
             </General.BgImage>

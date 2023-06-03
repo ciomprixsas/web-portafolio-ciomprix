@@ -71,7 +71,7 @@ code {
 }
 
 .landingBg{
-  background-size: auto 14%;
+  background-size: auto 60vh;
   background-position: 70% 0%;
 }
 
@@ -79,9 +79,10 @@ code {
     grid-template-columns: repeat(a,25%);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .landingBg{
     background-position: auto;
     background-size: 100% auto;
   }
 }
+
