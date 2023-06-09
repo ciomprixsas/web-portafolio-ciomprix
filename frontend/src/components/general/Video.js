@@ -17,7 +17,7 @@ const VideoControls = ({//Componente de controles del video
     const percentProgress = (progress/duration)*100 //Control de barra de progreso
 
     return(
-                <div className='absolute bottom-1 w-[99%] h-8 bg-black flex items-center px-4 rounded-full z-10'>
+                <div className={`absolute bottom-1 w-[99%] h-8 bg-black flex items-center px-4 rounded-full z-10`}>
                     <button 
                         className='w-5 active:scale-125 transition-all durition-100' 
                         onClick={(progress<duration)?handlePlay:handleReplay}
@@ -53,12 +53,12 @@ const VideoControls = ({//Componente de controles del video
 }
 
 
-const Video = ({url,className}) => {//Componente principal
+const Video = ({url='https://www.youtube.com/watch?v=ixBgrqho03E',className}) => {//Componente principal
     //Acceso a la misma instancia
     const videoRef = useRef(null)
 
     //Declaracion de estados
-    const [play,setPlay] = useState(true)
+    const [play,setPlay] = useState(false)
     const [progress,setProgress] = useState(0)
     const [duration,setDuration] = useState(0)
     const [fullscreen,setFullscreen] = useState(false)
@@ -86,22 +86,19 @@ const Video = ({url,className}) => {//Componente principal
 
     return (
         <>
-            <div className={`flex items-center ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full'} ${className}`}>
-                <div className='flex items-center w-full flex-col relative' >
-                    <div onClick={handlePlay} className='w-full h-full'>
-                        <ReactPlayer 
-                            volume={0}
-                            playing={play}
-                            progressInterval={100}
-                            url={url} 
-                            className='z-0'
-                            width={`${100}%`}
-                            height={`${100}%`}  
-                            ref={videoRef}
-                            onProgress={(t)=>{setProgress(t.playedSeconds)}} //Actualizacion de progreso
-                            onDuration={(d)=>{setDuration(d)}}
-                        />
-                    </div>
+            <div className={`flex items-center flex-col ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full h-[50vh]'} ${className}`} id='video'>
+                    <ReactPlayer 
+                        volume={0.5}
+                        playing={play}
+                        progressInterval={100}
+                        url={url} 
+                        className='z-0'
+                        width={`${100}%`}
+                        height={`${100}%`}  
+                        ref={videoRef}
+                        onProgress={(t)=>{setProgress(t.playedSeconds)}} //Actualizacion de progreso
+                        onDuration={(d)=>{setDuration(d)}}
+                    />
                     <VideoControls 
                         progress={progress}
                         duration={duration}
@@ -117,7 +114,6 @@ const Video = ({url,className}) => {//Componente principal
                         className={`absolute top-[40%] h-1/5 opacity-75 transition-all duration-100 active:scale-125 ${(play) && 'invisible'}`} 
                         onClick={handlePlay} 
                     />
-                </div>
             </div>
         </>
     );

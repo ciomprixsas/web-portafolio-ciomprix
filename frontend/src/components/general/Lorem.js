@@ -10,7 +10,6 @@ import { loremIpsum, name, surname, fullname, username } from 'react-lorem-ipsum
         for(let i=0;i<l;i++){
           returnText+=text.charAt(i)
         }
-        console.log(returnText)
         return returnText
     }
     return (

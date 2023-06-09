@@ -71,7 +71,7 @@ code {
 }
 
 .landingBg{
-  background-size: auto 14%;
+  background-size: auto 60vh;
   background-position: 70% 0%;
 }
 
@@ -79,9 +79,27 @@ code {
     grid-template-columns: repeat(a,25%);
 }
 
+.loading{
+ animation-name: loading;
+ animation-duration: 2s;
+ animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+  to{transform: rotate(360deg);}
+}
+
+@media (min-width: 768px) {
+  .landingBg{
+    background-position: auto;
+    background-size: 100% auto;
+  }
+}
 @media (min-width: 1024px) {
   .landingBg{
     background-position: auto;
     background-size: 100% auto;
   }
 }
+
+

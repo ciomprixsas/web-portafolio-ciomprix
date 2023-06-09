@@ -8,17 +8,31 @@ export const BASE_URL = process.env.REACT_APP_URL;
 const Header = ({mode}) => {
 
     //Acceso al contexto de la pagina
-    const { solutions } = usePageContext()
+    const { getSolutions } = usePageContext()
+
+    const [solutions,setSolutions] = useState()
+    const [charged,setCharged] = useState(false)
+
+    const setData = async() => {
+        let a=await getSolutions()
+        for(let b of a){
+        b.route = window.location.pathname+'/#'+b.name_solution
+        }
+        setCharged(true)
+        setSolutions(a)
+    }
+
+    if(solutions===undefined) setData()
 
     return (
         <>  
             <header 
                 className={
                     `flex items-center flex-row w-full h-20 text-sm openMedium justify-center 
-                    ${(mode === 'ligth')?'text-white bg-transparent':'text-black bg-gray-200'} lg:px-24`
+                    ${(mode === 'ligth')?'text-white bg-transparent':'text-black bg-gray-200'} lg:px-10 xl:px-24`
                 } 
              >
-                <General.Trigger className={BASE_URL}>
+                <General.Trigger className={BASE_URL} href=''>
                     <img 
                         src={(mode === 'ligth')? BASE_URL + '/assets/img/ciomprix_logo.png': BASE_URL + '/assets/img/ciomprix_logo_dark.png'} 
                         alt='logo' 
@@ -31,7 +45,7 @@ const Header = ({mode}) => {
                        
                             <General.Cloner //Generador de menu 
                                 items={Object.values(solutions)} 
-                                rprops={[['href','name_solution'],['children','tittle_solution'],['key','id_solution']]}
+                                rprops={[['hrefl','name_solution'],['children','tittle_solution'],['key','id_solution']]}
                             >
                                 <General.Trigger className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
                             </General.Cloner>

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const Trigger = ({href='',onClick,className,children}) => {
+const Trigger = ({href,hrefl,onClick,className,children}) => {
     let render
     const navigator = useNavigate()
     
@@ -9,9 +9,9 @@ const Trigger = ({href='',onClick,className,children}) => {
         navigator('/'+href)
     }
 
-    if(href[0]==='#'){
+    if(hrefl!=undefined){
             render = 
-            <a className={className} href={href}>
+            <a className={className} href={'../#'+hrefl}>
                 {children}
             </a>
     }
