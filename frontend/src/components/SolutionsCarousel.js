@@ -18,6 +18,7 @@ const SolutionsCarousel = ({title,id,href}) => {
     const [widthItems,setWidthItems] = useState()
     const [translate, setTranslate] = useState(0)
     const [categories,setCategories] = useState(undefined)
+    
    // const [jump,jump=] = useState(1)
     const [lim,setLim] = useState()
 
@@ -35,7 +36,8 @@ const SolutionsCarousel = ({title,id,href}) => {
 
     //if(categories!=undefined)console.log(categories.length)
     let jump
-    let xInit
+    let changedJump
+    let xInit,yInit
 
     //Funciones de movimiento
     const clickLeft = () => {
@@ -54,23 +56,26 @@ const SolutionsCarousel = ({title,id,href}) => {
     const handleTouchStart = (e) =>{
         [...e.changedTouches].map(touch=>{
             xInit=touch.pageX
+            yInit=touch.pageY
         })
     }
 
     const handleTouchMove = (e) => {
         [...e.changedTouches].map(touch=>{
-            if(touch.pageX<(xInit-50) && translate < lim){
-                if(lim-translate<1)setTranslate(translate+(lim-translate))
-                else setTranslate(translate+1)
-            }
-            else if(touch.pageX>(xInit+50) && translate >0){
-                if(translate<1)setTranslate(0)
-                else setTranslate(translate-1)
+            if(touch.pageY < yInit+10 && touch.pageY > yInit-10){
+                if(touch.pageX<(xInit-50) && translate < lim){
+                    if(lim-translate<1)setTranslate(translate+(lim-translate))
+                    else setTranslate(translate+1)
+                }
+                else if(touch.pageX>(xInit+50) && translate >0){
+                    if(translate<1)setTranslate(0)
+                    else setTranslate(translate-1)
+                }
             }
         })
     }
 
-    if(width<640 && jump!=1)jump=(1)
+    if(width<640 && jump!=1)jump=1
     else if(width<768 && jump!=1)jump=(2)
     else if(width<1024 && jump!=1)jump=(3)
     else if(jump!=4)jump=(4)
@@ -78,16 +83,22 @@ const SolutionsCarousel = ({title,id,href}) => {
     useEffect(()=>{
         if(widthUsableRef.current)setWidthItems(((widthUsableRef.current.offsetWidth-(16*(jump-1)))/jump))
         if(categories!=undefined){
-        setLim(categories.length/jump-1)
+        setLim(categories.length/jump-1) 
         }
     })
+
+    useEffect(()=>{
+        if(translate>=1){
+            setTranslate(translate-1)
+        }
+    },[jump])
 
     if(!categories) return null
 
     return (
         <>
             <div className='w-full my-24 text-black' ref={widthUsableRef} id={href}>
-                <h3 className='text-3xl lg:text-4xl'>{'Nuestros '+title}</h3>
+                <h3 className='text-3xl lg:text-4xl'>{title}</h3>
                 {(categories.length>jump && global.naveType === "computer"/*Identificador de dispositivo*/) &&
                 <div className={`flex flex-row flex-nowrap justify-end my-1 h-8`}
                     >
@@ -112,7 +123,7 @@ const SolutionsCarousel = ({title,id,href}) => {
                 {widthUsableRef.current!=undefined &&
                 <ul 
                     className={`grid grid-flow-col gap-[16px] grap w-full h-auto relative transition-[left] duration-700 lg:duration-[2s]`} 
-                    style={{left:`${-translate*(widthItems*jump+16*(jump-1))}px`,gridTemplateColumns:`repeat(${categories.length},${widthItems}px)`}}
+                    style={{left:`${-translate*((widthItems+16)*jump)}px`,gridTemplateColumns:`repeat(${categories.length},${widthItems}px)`}}
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
                 >

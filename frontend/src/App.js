@@ -36,7 +36,7 @@ function App() {
   if(categories!=undefined) {
     categoriesRoutes  = categories.map((c)=>{
         return(
-          <Route key={c.id_solution} path={c.solution.name_solution+'/'+c.id_category} element={<SolutionView ID={c.id_solution} category={c} title={c.solution.tittle_solution} description={c.solution.description_solution}/>}/>
+          <Route key={c.id_solution} path={c.solution.name_solution+'/'+c.id_category} element={<SolutionView category={c} title={c.solution.tittle_solution} description={c.solution.description_solution}/>}/>
         )
       })
   }
@@ -45,7 +45,8 @@ function App() {
     <>
       <BrowserRouter basename={window.location.pathname || ''}>
         <Routes>
-          <Route path="/" exact element={<Landing/>}/>
+          <Route path="/" element={<Landing/>}/>
+          <Route path="/test"  element={<SolutionView category={{id_category:1}} title={'salfjalkjfd'}/>}/>
           {categoriesRoutes}
         </Routes>
       </BrowserRouter>

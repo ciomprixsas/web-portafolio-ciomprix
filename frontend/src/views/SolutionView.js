@@ -2,6 +2,7 @@ import {useCallback,useEffect,useState} from "react"
 //Importacion de componentes
 import * as General from "../components/general/GeneralModules"
 import ContentGrid from "../components/ContentGrid"
+import Loading from "./Loading"
 
 //Importacion de iconos
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -15,9 +16,10 @@ export const BASE_URL = process.env.REACT_APP_URL;
 const SolutionView = ({title,category,description}) => {
     const {width,heigth} = useScreenSize()
 
-    const {getStorage} = usePageContext()
+    const {getStorage,rateCharged} = usePageContext()
     
     const [storage,setStorage] = useState()
+    const [charged,setCharged] = useState()
 
     const setData = async() => {
         let a=await getStorage(category.id_category)
@@ -26,11 +28,17 @@ const SolutionView = ({title,category,description}) => {
 
     if(storage===undefined)setData()
 
+    
+    useEffect(()=>{
+        setCharged(rateCharged())
+    })
+
     return (
         <>
+        {/*(!charged) && <Loading/>*/}
             <General.BgImage
-                src={(global.naveType==="movile"  || width<450)?(BASE_URL+'/assets/img/landing_bgmini.svg'):(BASE_URL+'/assets/img/landing_bg.svg')} 
-                className='w-screen bg-no-repeat bg-gray-700 landingBg'
+                src={(width<1024)?(BASE_URL+'/assets/img/landing_bgmini.svg'):(BASE_URL+'/assets/img/landing_bg.svg')} 
+                className='w-screen bg-no-repeat landingBg'
             >
                 <General.Header mode="dark"/>
                 <main className='text-black relative z-20 pb-16 text-white px-4 lg:px-16 xl:px-28 2xl:px-48' >

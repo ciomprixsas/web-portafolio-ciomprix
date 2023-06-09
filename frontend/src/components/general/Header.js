@@ -8,7 +8,21 @@ export const BASE_URL = process.env.REACT_APP_URL;
 const Header = ({mode}) => {
 
     //Acceso al contexto de la pagina
-    const { solutions } = usePageContext()
+    const { getSolutions } = usePageContext()
+
+    const [solutions,setSolutions] = useState()
+    const [charged,setCharged] = useState(false)
+
+    const setData = async() => {
+        let a=await getSolutions()
+        for(let b of a){
+        b.route = window.location.pathname+'/#'+b.name_solution
+        }
+        setCharged(true)
+        setSolutions(a)
+    }
+
+    if(solutions===undefined) setData()
 
     return (
         <>  

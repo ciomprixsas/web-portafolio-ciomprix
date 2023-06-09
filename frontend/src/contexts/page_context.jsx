@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 
 const PageContex = React.createContext();
 
@@ -7,65 +7,76 @@ export const BASE_URL = process.env.REACT_APP_URL;
 
 export const PageProvider = (props) => {
   //Crea contexto para lectura global al JSON
-  const [solutions, setSolutions] = useState(undefined);
 
   const cards_img = [BASE_URL+'/assets/img/photo-1574073763042-9dbe6ae03853.webp',BASE_URL+'/assets/img/photo-1594394489103-e4aa367d46da.webp',BASE_URL+'/assets/img/photo-1643513208375-df314b16347a.webp']
 
-  /*const setData = async() => {
-    console.log(await getSolutions1())
-  };*/
+  const [charged,setCharged] = useState()
 
+  let allCharged=[]
+  
   const pageApi = axios.create({
     baseURL: 'https://test-api-ciom-production.up.railway.app/api/'
   })
 
-  const getSolutions = () => {
-    axios
-      .get("https://test-api-ciom-production.up.railway.app/api/solutions")
-      .then(function (response) {
-        setSolutions({...response.data})
-      }).then()
-      .catch(function (error) {
-        console.error(error);
-      })
-  }
-  const getSolution = async(id) => {
-     return ((await pageApi.get('solution/'+id)).data)
-  }
-  const getCategories = async(id) => {
-      return(Object.values((await pageApi.get('categoriesBySolution/'+id)).data))
+  const usingApi = async(endpoint) => {
+    allCharged.push(false)
+    let index=allCharged.length-1
+    let data =(await pageApi.get(endpoint)).data
+    allCharged[index]=true
+    return (data)
   }
   
-  const getAllCategories = async(id) => {
-    return(Object.values((await pageApi.get('categories')).data))
-  }
+  const getSolutions = async() => {
+    return (await usingApi('solutions'))
+ }
 
-  const getCategoriesBySolution = async (id,setter) => {
-    setter((await pageApi.get('categoriesBySolution/'+id)).data)
+  const getSolution = async(id) => {
+     return (await usingApi('solution/'+id))
   }
-
-  const getStorageByCategory = async (id,setter) => {
-    setter((await pageApi.get('storagesByCategory/'+id)).data)
+  const getCategories = async(id) => {
+      return Object.values(await usingApi('categoriesBySolution/'+id))
+  }
+  
+  const getAllCategories = async() => {
+    return Object.values(await usingApi('categories'))
   }
 
   const getStorage = async(id) => {
-    return ((await pageApi.get('storagesByCategory/'+id)).data)
+    return await usingApi('storagesByCategory/'+id)
   }
 
-  
-  useEffect(()=>{
-    getSolutions()
-  },[])
+  const rateCharged = () => {
+    
+    console.log("Start")
+    for(let ch of allCharged){
+        if(!ch){
+          console.log(":"+allCharged)
+          console.log(false)
+          return false
+        }
+    }
+    console.log("charged")
+    console.log(allCharged)
+    allCharged = []
+    return true
+  }
+
+  const resetCharged = () =>{
+    setCharged([])
+  }
+
 
   const value = {
-    solutions,
-    getCategoriesBySolution,
-    getStorageByCategory,
     getSolution,
+    getSolutions,
     getCategories,
     getAllCategories,
     getStorage,
-    cards_img
+    charged,
+    rateCharged,
+    resetCharged,
+    cards_img,
+    allCharged
   }
 
   return <PageContex.Provider value={value} {...props} />;
