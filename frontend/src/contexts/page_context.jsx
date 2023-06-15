@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
+import { TbHexagonLetterQ } from "react-icons/tb";
 
 const PageContex = React.createContext();
 
@@ -10,7 +11,11 @@ export const PageProvider = (props) => {
 
   const cards_img = [BASE_URL+'/assets/img/photo-1574073763042-9dbe6ae03853.webp',BASE_URL+'/assets/img/photo-1594394489103-e4aa367d46da.webp',BASE_URL+'/assets/img/photo-1643513208375-df314b16347a.webp']
 
-  const [charged,setCharged] = useState()
+  const [charged,setCharged] = useState(false)
+
+  const [solutions,setSolutions] = useState()
+  const [categories,setCategories] = useState()
+  const [storage, setStorage] =useState()
 
   let allCharged=[]
   
@@ -18,8 +23,18 @@ export const PageProvider = (props) => {
     baseURL: 'https://test-api-ciom-production.up.railway.app/api/'
   })
 
+  const setAllData = async() => {
+    setSolutions((await pageApi.get('solutions')).data)
+    setCategories((await pageApi.get('categories')).data)
+    setStorage((await pageApi.get('storages')).data)
+    setCharged(true)
+  }
+
+  if(!charged)setAllData()
+
+
   const usingApi = async(endpoint) => {
-    allCharged.push(false)
+    //allCharged.push(false)
     let index=allCharged.length-1
     let data =(await pageApi.get(endpoint)).data
     allCharged[index]=true
@@ -27,42 +42,52 @@ export const PageProvider = (props) => {
   }
   
   const getSolutions = async() => {
-    return (await usingApi('solutions'))
+    return solutions
  }
 
   const getSolution = async(id) => {
-     return (await usingApi('solution/'+id))
+    try{
+      for(let s of solutions){
+        if(s.id_solution===id)return s
+      }
+      throw 'Solution no found'
+    }
+    catch(e){
+      console.log(e)
+    }
   }
   const getCategories = async(id) => {
-      return Object.values(await usingApi('categoriesBySolution/'+id))
+    try{
+      let cat = []
+      for(let c of categories){
+        if(c.id_solution===id) cat.push(c)
+      }
+      if(cat.length == 0) throw 'Categories no found'
+      else return Object.values(cat)
+    }
+    catch(e){
+      console.log(e)
+    }
   }
   
   const getAllCategories = async() => {
-    return Object.values(await usingApi('categories'))
+    return Object.values(categories)
   }
 
   const getStorage = async(id) => {
-    return await usingApi('storagesByCategory/'+id)
-  }
-
-  const rateCharged = () => {
-    
-    console.log("Start")
-    for(let ch of allCharged){
-        if(!ch){
-          console.log(":"+allCharged)
-          console.log(false)
-          return false
-        }
+    try{
+      let sto = []
+      for(let s of storage){
+        if(s.id_category===id) sto.push(s)
+      }
+      if(sto.length == 0) throw 'Object not found'
+      else return Object.values(sto)
     }
-    console.log("charged")
-    console.log(allCharged)
-    allCharged = []
-    return true
-  }
+    catch(e){
+      console.log(e)
+    }
 
-  const resetCharged = () =>{
-    setCharged([])
+    return await usingApi('storagesByCategory/'+id)
   }
 
 
@@ -73,8 +98,6 @@ export const PageProvider = (props) => {
     getAllCategories,
     getStorage,
     charged,
-    rateCharged,
-    resetCharged,
     cards_img,
     allCharged
   }

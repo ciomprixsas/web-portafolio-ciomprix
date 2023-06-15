@@ -14,12 +14,12 @@ import useScreenSize from '../hooks/useScreenSize'
 export const BASE_URL = process.env.REACT_APP_URL;
 
 const SolutionView = ({title,category,description}) => {
-    const {width,heigth} = useScreenSize()
 
-    const {getStorage,rateCharged} = usePageContext()
+    const {width} = useScreenSize()
+
+    const {getStorage} = usePageContext()
     
     const [storage,setStorage] = useState()
-    const [charged,setCharged] = useState()
 
     const setData = async() => {
         let a=await getStorage(category.id_category)
@@ -28,14 +28,8 @@ const SolutionView = ({title,category,description}) => {
 
     if(storage===undefined)setData()
 
-    
-    useEffect(()=>{
-        setCharged(rateCharged())
-    })
-
     return (
         <>
-        {/*(!charged) && <Loading/>*/}
             <General.BgImage
                 src={(width<1024)?(BASE_URL+'/assets/img/landing_bgmini.svg'):(BASE_URL+'/assets/img/landing_bg.svg')} 
                 className='w-screen bg-no-repeat landingBg'

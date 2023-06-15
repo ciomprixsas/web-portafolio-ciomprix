@@ -14,9 +14,12 @@ const SolutionsCarousel = ({title,id,href}) => {
 
     const {getSolution,getCategories} = usePageContext()
 
+    window.onload = () => {
+        console.log('cargando')
+    }
 
     const [widthItems,setWidthItems] = useState()
-    const [translate, setTranslate] = useState(0)
+    const [item, setItem] = useState(0)
     const [categories,setCategories] = useState(undefined)
     
    // const [jump,jump=] = useState(1)
@@ -32,24 +35,24 @@ const SolutionsCarousel = ({title,id,href}) => {
 
     if(categories===undefined)setData()
 
+
     const widthUsableRef = useRef(null)
 
     //if(categories!=undefined)console.log(categories.length)
     let jump
-    let changedJump
     let xInit,yInit
 
     //Funciones de movimiento
     const clickLeft = () => {
-        if(translate>0){ 
-            if(translate<1)setTranslate(0)
-            else setTranslate(translate-1)
+        if(item>0){ 
+            if(item<1)setItem(0)
+            else setItem(item-1)
         }
     }
 
     const clickRight = () => {
-        if(lim-translate<1)setTranslate(translate+(lim-translate))
-        else setTranslate(translate+1)
+        if(lim-item<1)setItem(item+(lim-item))
+        else setItem(item+1)
     }
 
     //Controles touch
@@ -63,13 +66,13 @@ const SolutionsCarousel = ({title,id,href}) => {
     const handleTouchMove = (e) => {
         [...e.changedTouches].map(touch=>{
             if(touch.pageY < yInit+10 && touch.pageY > yInit-10){
-                if(touch.pageX<(xInit-50) && translate < lim){
-                    if(lim-translate<1)setTranslate(translate+(lim-translate))
-                    else setTranslate(translate+1)
+                if(touch.pageX<(xInit-50) && item < lim){
+                    if(lim-item<1)setItem(item+(lim-item))
+                    else setItem(item+1)
                 }
-                else if(touch.pageX>(xInit+50) && translate >0){
-                    if(translate<1)setTranslate(0)
-                    else setTranslate(translate-1)
+                else if(touch.pageX>(xInit+50) && item >0){
+                    if(item<1)setItem(0)
+                    else setItem(item-1)
                 }
             }
         })
@@ -83,13 +86,13 @@ const SolutionsCarousel = ({title,id,href}) => {
     useEffect(()=>{
         if(widthUsableRef.current)setWidthItems(((widthUsableRef.current.offsetWidth-(16*(jump-1)))/jump))
         if(categories!=undefined){
-        setLim(categories.length/jump-1) 
+        setLim(categories.length-jump) 
         }
     })
 
     useEffect(()=>{
-        if(translate>=1){
-            setTranslate(translate-1)
+        if(item>=lim){
+            setItem(item-1)
         }
     },[jump])
 
@@ -123,7 +126,7 @@ const SolutionsCarousel = ({title,id,href}) => {
                 {widthUsableRef.current!=undefined &&
                 <ul 
                     className={`grid grid-flow-col gap-[16px] grap w-full h-auto relative transition-[left] duration-700 lg:duration-[2s]`} 
-                    style={{left:`${-translate*((widthItems+16)*jump)}px`,gridTemplateColumns:`repeat(${categories.length},${widthItems}px)`}}
+                    style={{left:`${-item*((widthItems+16))}px`,gridTemplateColumns:`repeat(${categories.length},${widthItems}px)`}}
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
                 >

@@ -6,13 +6,17 @@ import { PageProvider,usePageContext} from './contexts/page_context'
 //Importacion de vistas
 import Landing from './views/Landing'
 import SolutionView from './views/SolutionView'
+import Loading from './views/Loading'
 import { useState} from 'react'
 
 
 function App() {
-  const {getSolution,getAllCategories} = usePageContext()
+  const {getSolution,getAllCategories,charged} = usePageContext()
+
 
   const [categories,setCategories] = useState(undefined)
+  
+  if(!charged) return (<Loading/>)
 
   const setData = async() => {
     let a=await getAllCategories()
@@ -29,7 +33,7 @@ function App() {
   } else {
     global.naveType="computer"
   }
-
+  
   let categoriesRoutes 
 
   if(categories===undefined)setData()
@@ -40,6 +44,7 @@ function App() {
         )
       })
   }
+  
 
   return (
     <>

@@ -7,7 +7,6 @@ import SolutionMiniCard from '../components/SolutionMiniCard'
 import SolutionsCarousel from '../components/SolutionsCarousel'
 import useScreenSize from '../hooks/useScreenSize'
 import Loading from './Loading'
-import { all } from 'axios'
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
@@ -16,26 +15,19 @@ const Landing = () => {
 
     const {width} = useScreenSize()
 
-    const { getSolutions,rateCharged} = usePageContext()
+    const { getSolutions,charged} = usePageContext()
 
     const [solutions,setSolutions] = useState()
-    const [charged,setCharged] = useState()
     
     const setData = async() =>{
         setSolutions(await getSolutions())
     }
 
     if(solutions===undefined)setData()
- 
-    useEffect(()=>{
-        setCharged(rateCharged())
-    })
-
     
 
     return (
         <>
-        {/*(!charged) && <Loading/>*/}
         <General.BgImage 
             src={(width<1024)? (BASE_URL+'/assets/img/landing_bgmini.svg'):(BASE_URL+'/assets/img/landing_bg.svg' )} 
             className='w-screen bg-no-repeat landingBg'
