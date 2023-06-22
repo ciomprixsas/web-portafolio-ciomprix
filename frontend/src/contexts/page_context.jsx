@@ -12,82 +12,33 @@ export const PageProvider = (props) => {
   const cards_img = [BASE_URL+'/assets/img/photo-1574073763042-9dbe6ae03853.webp',BASE_URL+'/assets/img/photo-1594394489103-e4aa367d46da.webp',BASE_URL+'/assets/img/photo-1643513208375-df314b16347a.webp']
 
   const [charged,setCharged] = useState(false)
-
-  const [solutions,setSolutions] = useState()
-  const [categories,setCategories] = useState()
-  const [storage, setStorage] =useState()
-
-  let allCharged=[]
   
   const pageApi = axios.create({
     baseURL: 'https://test-api-ciom-production.up.railway.app/api/'
   })
 
-  const setAllData = async() => {
-    setSolutions((await pageApi.get('solutions')).data)
-    setCategories((await pageApi.get('categories')).data)
-    setStorage((await pageApi.get('storages')).data)
-    setCharged(true)
-  }
-
-  if(!charged)setAllData()
-
-
   const usingApi = async(endpoint) => {
-    //allCharged.push(false)
-    let index=allCharged.length-1
-    let data =(await pageApi.get(endpoint)).data
-    allCharged[index]=true
-    return (data)
+    
+    return (await pageApi.get(endpoint)).data
   }
   
   const getSolutions = async() => {
-    return solutions
+    return await usingApi('/solutions')
  }
 
   const getSolution = async(id) => {
-    try{
-      for(let s of solutions){
-        if(s.id_solution===id)return s
-      }
-      throw 'Solution no found'
-    }
-    catch(e){
-      console.log(e)
-    }
+    return await usingApi('/solution/'+id)
   }
-  const getCategories = async(id) => {
-    try{
-      let cat = []
-      for(let c of categories){
-        if(c.id_solution===id) cat.push(c)
-      }
-      if(cat.length == 0) throw 'Categories no found'
-      else return Object.values(cat)
-    }
-    catch(e){
-      console.log(e)
-    }
+  const getCategoriesBySolution = async(id) => {
+    return await usingApi('/categoriesBySolution/'+id)
   }
   
-  const getAllCategories = async() => {
-    return Object.values(categories)
+  const getCategories = async() => {
+    return Object.values(await usingApi('/categories'))
   }
 
-  const getStorage = async(id) => {
-    try{
-      let sto = []
-      for(let s of storage){
-        if(s.id_category===id) sto.push(s)
-      }
-      if(sto.length == 0) throw 'Object not found'
-      else return Object.values(sto)
-    }
-    catch(e){
-      console.log(e)
-    }
-
-    return await usingApi('storagesByCategory/'+id)
+  const getStoragesByCategory = async(id) => {
+    return await usingApi('storagesByCategory/')
   }
 
 
@@ -95,11 +46,11 @@ export const PageProvider = (props) => {
     getSolution,
     getSolutions,
     getCategories,
-    getAllCategories,
-    getStorage,
+    getCategoriesBySolution,
+    getStoragesByCategory,
+    setCharged,
     charged,
     cards_img,
-    allCharged
   }
 
   return <PageContex.Provider value={value} {...props} />;
