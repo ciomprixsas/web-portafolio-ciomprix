@@ -5,24 +5,7 @@ import axios from "axios";
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
-const Header = ({mode}) => {
-
-    //Acceso al contexto de la pagina
-    const { getSolutions } = usePageContext()
-
-    const [solutions,setSolutions] = useState()
-    const [charged,setCharged] = useState(false)
-
-    const setData = async() => {
-        let a=await getSolutions()
-        for(let b of a){
-        b.route = window.location.pathname+'/#'+b.name_solution
-        }
-        setCharged(true)
-        setSolutions(a)
-    }
-
-    if(solutions===undefined) setData()
+const Header = ({mode,items}) => {
 
     return (
         <>  
@@ -41,15 +24,12 @@ const Header = ({mode}) => {
                 </General.Trigger>
                 
                 <nav className='flex flex-row justify-end items-center w-0 z-10 h-full invisible lg:visible lg:w-full'>
-                        {!(solutions===undefined) && 
-                       
-                            <General.Cloner //Generador de menu 
-                                items={Object.values(solutions)} 
-                                rprops={[['hrefl','name_solution'],['children','tittle_solution'],['key','id_solution']]}
-                            >
-                                <General.Trigger className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
-                            </General.Cloner>
-                        }
+                        <General.Cloner //Generador de menu 
+                            items={Object.values(items)} 
+                            rprops={[['hrefl','route'],['children','tittle_s'],['key','id']]}
+                        >
+                            <General.Trigger className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
+                        </General.Cloner>
                 </nav>
             </header>
         </>

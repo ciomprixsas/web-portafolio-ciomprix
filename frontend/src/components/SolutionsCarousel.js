@@ -9,47 +9,32 @@ import {faChevronLeft,faChevronRight} from '@fortawesome/free-solid-svg-icons'
 import { usePageContext } from '../contexts/page_context';
 
 
-const SolutionsCarousel = ({title,id,href}) => {
+const SolutionsCarousel = ({title,element,href}) => {
     const {width} = useScreenSize()
 
-    const {getSolution,getCategories} = usePageContext()
-
-
     const [widthItems,setWidthItems] = useState()
-    const [translate, setTranslate] = useState(0)
-    const [categories,setCategories] = useState(undefined)
+    const [item, setItem] = useState(0)
     
    // const [jump,jump=] = useState(1)
     const [lim,setLim] = useState()
 
-    const setData = async() => {
-        let a=await getCategories(id)
-        for(let b of a){
-        b.route = (await getSolution(b.id_solution)).name_solution+'/'+b.id_category
-        }
-        setCategories(a)
-    }
-
-    if(categories===undefined)setData()
-
     const widthUsableRef = useRef(null)
 
-    //if(categories!=undefined)console.log(categories.length)
+    //if(element!=undefined)console.log(element.length)
     let jump
-    let changedJump
     let xInit,yInit
 
     //Funciones de movimiento
     const clickLeft = () => {
-        if(translate>0){ 
-            if(translate<1)setTranslate(0)
-            else setTranslate(translate-1)
+        if(item>0){ 
+            if(item<1)setItem(0)
+            else setItem(item-1)
         }
     }
 
     const clickRight = () => {
-        if(lim-translate<1)setTranslate(translate+(lim-translate))
-        else setTranslate(translate+1)
+        if(lim-item<1)setItem(item+(lim-item))
+        else setItem(item+1)
     }
 
     //Controles touch
@@ -63,13 +48,13 @@ const SolutionsCarousel = ({title,id,href}) => {
     const handleTouchMove = (e) => {
         [...e.changedTouches].map(touch=>{
             if(touch.pageY < yInit+10 && touch.pageY > yInit-10){
-                if(touch.pageX<(xInit-50) && translate < lim){
-                    if(lim-translate<1)setTranslate(translate+(lim-translate))
-                    else setTranslate(translate+1)
+                if(touch.pageX<(xInit-50) && item < lim){
+                    if(lim-item<1)setItem(item+(lim-item))
+                    else setItem(item+1)
                 }
-                else if(touch.pageX>(xInit+50) && translate >0){
-                    if(translate<1)setTranslate(0)
-                    else setTranslate(translate-1)
+                else if(touch.pageX>(xInit+50) && item >0){
+                    if(item<1)setItem(0)
+                    else setItem(item-1)
                 }
             }
         })
@@ -82,24 +67,23 @@ const SolutionsCarousel = ({title,id,href}) => {
 
     useEffect(()=>{
         if(widthUsableRef.current)setWidthItems(((widthUsableRef.current.offsetWidth-(16*(jump-1)))/jump))
-        if(categories!=undefined){
-        setLim(categories.length/jump-1) 
+        if(element!=undefined){
+            setLim((element.length-jump>0)?element.length-jump:0) 
         }
     })
 
     useEffect(()=>{
-        if(translate>=1){
-            setTranslate(translate-1)
-        }
+        setItem((item>0)&&item-1)
     },[jump])
 
-    if(!categories) return null
+    if(!element) return null
 
+    
     return (
         <>
             <div className='w-full my-24 text-black' ref={widthUsableRef} id={href}>
                 <h3 className='text-3xl lg:text-4xl'>{title}</h3>
-                {(categories.length>jump && global.naveType === "computer"/*Identificador de dispositivo*/) &&
+                {(element.length>jump && global.naveType === "computer"/*Identificador de dispositivo*/) &&
                 <div className={`flex flex-row flex-nowrap justify-end my-1 h-8`}
                     >
                     
@@ -123,11 +107,11 @@ const SolutionsCarousel = ({title,id,href}) => {
                 {widthUsableRef.current!=undefined &&
                 <ul 
                     className={`grid grid-flow-col gap-[16px] grap w-full h-auto relative transition-[left] duration-700 lg:duration-[2s]`} 
-                    style={{left:`${-translate*((widthItems+16)*jump)}px`,gridTemplateColumns:`repeat(${categories.length},${widthItems}px)`}}
+                    style={{left:`${-item*((widthItems+16))}px`,gridTemplateColumns:`repeat(${element.length},${widthItems}px)`}}
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
                 >
-                    <General.Cloner items={Object.values(categories)} rprops={[['key','id_category'],['id','id_category'],['title','name_category'],['href','route']]}>
+                    <General.Cloner items={Object.values(element)} rprops={[['key','id'],['id','id'],['title','name_c'],['href','route'],['src','img_c']]}>
                         <InteractiveCard className={`h-[400px]`}/>
                     </General.Cloner>
                 </ul>
