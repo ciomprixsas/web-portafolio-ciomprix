@@ -71,7 +71,7 @@ code {
 }
 
 .landingBg{
-  background-size: 250vw auto;
+  background-size: 1024px auto;
   background-position: 70% 0%;
 }
 
@@ -85,14 +85,27 @@ code {
  animation-iteration-count: infinite;
 }
 
+.solutionBg{
+    background-position: auto;
+    background-size: 1200px auto;
+}
+
+.imgInput{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+
 @keyframes loading {
   to{transform: rotate(360deg);}
 }
 
+
 @media (min-width: 768px) {
-  .landingBg{
-    background-position: auto;
-    background-size: 100% auto;
+  .solutionBg{
+    background-position: 0 0;
+    background-size: 200vw auto;
   }
 }
 @media (min-width: 1024px) {
@@ -100,6 +113,11 @@ code {
     background-position: auto;
     background-size: 100% auto;
   }
+  .solutionBg{
+    background-position: auto;
+    background-size: 100% auto;
+  }
 }
+
 
 

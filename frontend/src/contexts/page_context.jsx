@@ -12,10 +12,21 @@ export const PageProvider = (props) => {
   const cards_img = [BASE_URL+'/assets/img/photo-1574073763042-9dbe6ae03853.webp',BASE_URL+'/assets/img/photo-1594394489103-e4aa367d46da.webp',BASE_URL+'/assets/img/photo-1643513208375-df314b16347a.webp']
 
   const [charged,setCharged] = useState(false)
+  const [solutions,setSolutions] = useState()
+  const userInfo= {user:'admi',password:'123'}
+  const [sessionOpened,setSessionOpened] = useState(true)
+
   
   const pageApi = axios.create({
     baseURL: 'https://test-api-ciom-production.up.railway.app/api/'
   })
+
+  const LogIn = (user,password) =>{
+    //console.log(`user:${userInfo.user==user},password:${userInfo.password==password}`)
+    if(userInfo.user == user && userInfo.password == password){
+      setSessionOpened(true)
+    }
+  }
 
   const usingApi = async(endpoint) => {
     
@@ -23,8 +34,10 @@ export const PageProvider = (props) => {
   }
   
   const getSolutions = async() => {
-    return await usingApi('/solutions')
+    setSolutions(await usingApi('/solutions'))
  }
+
+  if(!solutions) getSolutions()
 
   const getSolution = async(id) => {
     return await usingApi('/solution/'+id)
@@ -36,19 +49,24 @@ export const PageProvider = (props) => {
   const getCategories = async() => {
     return Object.values(await usingApi('/categories'))
   }
-
-  const getStoragesByCategory = async(id) => {
-    return await usingApi('storagesByCategory/')
+  const getCategory = async(id) => {
+    return Object.values(await usingApi('/category/'+id))
   }
 
+  const getStoragesByCategory = async(id) => {
+    return await usingApi('storagesByCategory/'+id)
+  }
 
   const value = {
     getSolution,
-    getSolutions,
+    solutions,
     getCategories,
+    getCategory,
     getCategoriesBySolution,
     getStoragesByCategory,
     setCharged,
+    LogIn,
+    sessionOpened,
     charged,
     cards_img,
   }

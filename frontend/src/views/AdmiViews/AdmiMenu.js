@@ -59,8 +59,8 @@ const AdmiMenu = ({}) => {
             </IconContext.Provider>
             {menuOpened &&
             <Menu close={closeMenu}>
-                    <MenuItem icon={<BsGraphUp size={'30px'}/>} title='Dashboard' href={'/admi_dashboard'}/>
-                    <MenuItem icon={<MdManageSearch size={'30px'}/>} title='Solutions' href={'/solution_manager'}/>
+                    <MenuItem icon={<BsGraphUp size={'30px'}/>} title='Dashboard' href={'/admi/dashboard'}/>
+                    <MenuItem icon={<MdManageSearch size={'30px'}/>} title='Solutions' href={'/admi/solution_manager'}/>
             </Menu>
             }
         </>

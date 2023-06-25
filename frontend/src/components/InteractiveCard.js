@@ -3,9 +3,9 @@ import * as General from './general/GeneralModules';
 import { PageProvider, usePageContext } from '../contexts/page_context';
 import { BASE_URL } from './general/BgImage';
 
-const InteractiveCard = ({title,className,id,width,href,src}) => {
+const InteractiveCard = ({title,className,width,href,src,vid}) => {
 
-    const {getStorage,cards_img} = usePageContext()
+    const {cards_img} = usePageContext()
 
     const [modal,setModal] = useState(false)
 
@@ -34,7 +34,7 @@ const InteractiveCard = ({title,className,id,width,href,src}) => {
                 </div>
             </General.BgImage>
             <General.Modal className='w-[100vw] md:w-[70vw] lg:w-[50vw]' state={modal} setState={setModal}>
-                <General.Video /*url={storage.vid_sc}*/  className={`mt-3`}/>
+                <General.Video url={''} className={`mt-3`}/>
             </General.Modal>
            </>
         </>

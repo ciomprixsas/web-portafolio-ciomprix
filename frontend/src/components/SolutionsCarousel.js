@@ -111,7 +111,7 @@ const SolutionsCarousel = ({title,element,href}) => {
                     onTouchMoveCapture={(e)=>handleTouchMove(e)}
                     onTouchStartCapture ={(e)=>handleTouchStart(e)}
                 >
-                    <General.Cloner items={Object.values(element)} rprops={[['key','id'],['id','id'],['title','name_c'],['href','route'],['src','img_c']]}>
+                    <General.Cloner items={Object.values(element)} rprops={[['key','id'],['id','id'],['title','tittle_c'],['href','route'],['src','img_c']]}>
                         <InteractiveCard className={`h-[400px]`}/>
                     </General.Cloner>
                 </ul>

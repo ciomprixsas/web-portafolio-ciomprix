@@ -7,30 +7,20 @@ import {AiOutlinePlusCircle} from 'react-icons/ai'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSquarePen,faRectangleXmark} from '@fortawesome/free-solid-svg-icons'
 import AdmiMenu from "./AdmiMenu";
+import Loading from "../Loading";
 
 const SolutionManager= () =>{
-    const {getSolutions,charged,setCharged} = usePageContext()
+    const {solutions} = usePageContext()
 
-    const [solutions,setSolutions] = React.useState()
-        
-    const setData = async() => {
-        setSolutions(await getSolutions())
-        console.log(await getSolutions())
-        setCharged(true)
-    }
-
-    if(!charged)setData()
-
-
-    if(charged){
+    if(solutions){
 
     return(
         <>
         <div className="grid grid-cols-3 relative top-36 gap-6 w-full px-16">
-            <General.Cloner items={solutions} rprops={[['img','img_s'],['title','tittle_s'],['active','active_NoActive']]}>
+            <General.Cloner items={solutions} rprops={[['img','img_s'],['title','tittle_s'],['active','active_NoActive'],['key','id']]}>
                 <ManagerCard/>
             </General.Cloner>
-            <General.Trigger className={'flex flex-col items-center justify-center w-full h-full bg-gray-800 text-white rounded-2xl'}>
+            <General.Trigger className={'flex flex-col items-center justify-center w-full h-full bg-gray-800 text-white rounded-2xl'} href={'/admi/solution_creator'}>
                     <AiOutlinePlusCircle color="white" size={'100px'}/>
                     <div className="mt-5 text-2xl openMedium">Create Solution</div>
             </General.Trigger>
