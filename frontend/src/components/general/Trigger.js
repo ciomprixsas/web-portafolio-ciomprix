@@ -1,33 +1,49 @@
-import { useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { usePageContext } from "../../contexts/page_context"
+
+export const BASE_URL = process.env.REACT_APP_URL;
+
 
 const Trigger = ({href,hrefl,onClick,className,children}) => {
-    let render
-    const navigator = useNavigate()
-    
-    //Ejecucion de navegacion
-    const handleToNavigate = () =>{
-        navigator('/'+href)
-    }
 
-    if(hrefl!=undefined){
-            render = 
-            <a className={className} href={'../#'+hrefl}>
+    const {setCharged} = usePageContext()
+
+    if(hrefl){
+        //console.log(BASE_URL+'=' + window.location.pathname)
+        if(window.location.pathname!=BASE_URL){
+            return(
+                <a className={className} href={BASE_URL+'#'+hrefl}>
+                    {children}
+                </a>
+            )
+        }
+        return(
+            <a className={className} href={'#'+hrefl}>
                 {children}
             </a>
+        )
+    }
+    else if(href){
+        return(
+            <Link to={href} className={className} >
+                {children}
+            </Link>
+        )
+    }
+    else if(onClick){
+        return(
+        <>
+            <button onClick={onClick} className={className}>
+                {children}
+            </button>
+        </>)
     }
     else{
-        render = 
-        <>
-        <button onClick={onClick!=undefined?onClick:handleToNavigate} className={className}>
-            {children}
-        </button>
-        </>
+        return(
+            <div className={className}>
+                {children}
+            </div>
+        )
     }
-            
-    return (
-        <>
-            {render}
-        </>
-    );
 }
     export default Trigger

@@ -6,8 +6,8 @@ const SolutionMiniCard = ({src,children,href}) => {
         <>
             <General.Trigger hrefl={href}>
                 <div className='w-full h-full  p-4 rounded-xl bg-blue-900 lg:p-5'>
-                    <img src={src} className='w-1/2 lg:w-5/12'/>
-                    <h3 className='w-4/5 mt-2 text-left text-xl openMedium lg:text-2xl'>
+                    <img src={src} className='w-2/5 lg:w-1/3'/>
+                    <h3 className='w-full mt-2 text-left text-xl openMedium lg:text-2xl'>
                         {children}
                     </h3>
                 </div>

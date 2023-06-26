@@ -7,5 +7,6 @@ import Modal from './Modal'
 import Cloner from './Cloner'
 import Video from './Video'
 import Trigger from './Trigger'
+import Input from './Input'
 
-export {BgImage,Footer,Header,Lorem,Modal,Cloner,Trigger,Video}
+export {BgImage,Footer,Header,Lorem,Modal,Cloner,Trigger,Video,Input}

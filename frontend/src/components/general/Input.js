@@ -5,9 +5,18 @@ import * as General from "./GeneralModules";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSquarePen} from '@fortawesome/free-solid-svg-icons'
 
-const Input = ({type,placeholder,name,id,className}) => {
+const Input = ({type,placeholder,name,id,className,setValue,active}) => {
 
     const [img,setImg] = React.useState()
+
+
+    const handleActive = () =>{
+        setValue(true)
+    }
+    const handleDesactivate = () =>{
+        setValue(false)
+    }
+
 
     const handleInput = (e) => {
         console.log(e.target.files)
@@ -18,13 +27,23 @@ const Input = ({type,placeholder,name,id,className}) => {
         reader.readAsDataURL(e.target.files[0])
     }
 
+    const handleChange = (value) => {
+        setValue(value)
+    }
+
     const setInput = ()=>{
         switch(type){
             case 'small_text':
                 return(
                     <>
                     <label className=" w-full mb-10 openMedium" htmlFor={id} >{name}</label>
-                    <input className='w-full my-2 py-1 px-2 bg-gray-900 border-2 border-gray-700 rounded-lg openMedium' type="text" name={id} id={id} placeholder={placeholder?placeholder:name}/>
+                    <input 
+                        className='w-full my-2 py-1 px-2 bg-gray-900 border-2 border-gray-700 rounded-lg openMedium  text-white ' 
+                        type="text" 
+                        name={id} 
+                        id={id} 
+                        placeholder={placeholder?placeholder:name}
+                        onChange={(e)=>handleChange(e.target.value)}/>
                     </>
                 )
             break
@@ -35,7 +54,14 @@ const Input = ({type,placeholder,name,id,className}) => {
                         <label className="openMedium" htmlFor={id} >{name}</label>
                         <General.Trigger className={'w-full text-end openMedium text-gray-500 transition-all duration-500 hover:text-white hover:underline'}>Olvidaste tu clave?</General.Trigger>
                     </div>
-                    <input className='w-full my-2 py-1 px-2 bg-gray-900 border-2 border-gray-700 rounded-lg openMedium' type="password" name={id} id={id} placeholder={placeholder?placeholder:name}/>
+                    <input 
+                        className='w-full my-2 py-1 px-2 bg-gray-900 border-2 border-gray-700 rounded-lg openMedium' 
+                        type="password" 
+                        name={id} 
+                        id={id} 
+                        placeholder={placeholder?placeholder:name}
+                        onChange={(e)=>handleChange(e.target.value)}
+                        />
                     </>
                 )
             break
@@ -53,7 +79,16 @@ const Input = ({type,placeholder,name,id,className}) => {
                             <input className="absolute opacity-0 w-8 h-8 z-10" type={'file'} onInput={handleInput} accept="jpg" id={id}/>
                             <FontAwesomeIcon icon={faSquarePen} style={{color: "#467bd8",position:'relative'}} size="2xl"/>
                         </div>
-                        <img src={img} className="w-full h-48 cover mt-5"/>
+                        <General.BgImage src={img} className="w-full h-48 cover mt-5 imgInput"/>
+                    </>
+                )
+            break
+            case 'active':
+                return(
+                    <>
+                    <div onClick={handleActive} className={`w-28 h-10 ${(active)&&'bg-green-500'} rounded-full text-center text-sm openMedium py-2`}>ACTIVATED</div>
+                    <div onClick={handleDesactivate} className={`w-28 h-10 ${(!active)&&'bg-red-500'} rounded-full text-center text-sm openMedium py-2`}>DESACTIVETED</div>
+                    <div className={`h-5 w-5 ${(active)?'bg-green-500':'bg-red-500'} ml-4 rounded-full`} />
                     </>
                 )
         }}

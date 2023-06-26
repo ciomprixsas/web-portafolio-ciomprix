@@ -5,7 +5,9 @@ import axios from "axios";
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
-const Header = ({mode,items}) => {
+const Header = ({mode}) => {
+
+    const {solutions} = usePageContext()
 
     return (
         <>  
@@ -15,7 +17,7 @@ const Header = ({mode,items}) => {
                     ${(mode === 'ligth')?'text-white bg-transparent':'text-black bg-gray-200'} lg:px-10 xl:px-24`
                 } 
              >
-                <General.Trigger className={BASE_URL} href=''>
+                <General.Trigger href='/'>
                     <img 
                         src={(mode === 'ligth')? BASE_URL + '/assets/img/ciomprix_logo.png': BASE_URL + '/assets/img/ciomprix_logo_dark.png'} 
                         alt='logo' 
@@ -25,8 +27,8 @@ const Header = ({mode,items}) => {
                 
                 <nav className='flex flex-row justify-end items-center w-0 z-10 h-full invisible lg:visible lg:w-full'>
                         <General.Cloner //Generador de menu 
-                            items={Object.values(items)} 
-                            rprops={[['hrefl','route'],['children','tittle_s'],['key','id']]}
+                            items={Object.values(solutions)} 
+                            rprops={[['hrefl','routes_s'],['children','tittle_s'],['key','id']]}
                         >
                             <General.Trigger className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
                         </General.Cloner>
