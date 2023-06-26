@@ -20,7 +20,7 @@ function RouteProtector({login,redirect,children}){
       return children
     }
     else{
-      
+      return <Navigate to={redirect}/>
     }
     
   }
@@ -63,12 +63,12 @@ function App() {
               </RouteProtector>
             }/>
             <Route exact path='/admi/solution_manager' element={
-              <RouteProtector login>
+              <RouteProtector login redirect={'/admi/login'}>
                 <SolutionManager/>
               </RouteProtector>
             }/>
             <Route exact path='/admi/solution_creator' element={
-              <RouteProtector login>
+              <RouteProtector login redirect={'/admi/login'}>
                 <SolutionForm/>
               </RouteProtector>
             }/>

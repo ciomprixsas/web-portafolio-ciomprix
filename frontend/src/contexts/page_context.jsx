@@ -14,7 +14,7 @@ export const PageProvider = (props) => {
   const [charged,setCharged] = useState(false)
   const [solutions,setSolutions] = useState()
   const userInfo= {user:'admi',password:'123'}
-  const [sessionOpened,setSessionOpened] = useState(true)
+  const [sessionOpened,setSessionOpened] = useState(false)
 
   
   const pageApi = axios.create({
