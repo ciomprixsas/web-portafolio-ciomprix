@@ -86,9 +86,9 @@ const Video = ({url='https://www.youtube.com/watch?v=ixBgrqho03E',className}) =>
 
     return (
         <>
-            <div className={`flex items-center flex-col ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full h-[50vh]'} ${className}`} id='video'>
+            <div className={`flex bg-black items-center flex-col ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full h-auto'} ${className}`} id='video'>
                     <ReactPlayer 
-                        volume={0.5}
+                        volume={1}
                         playing={play}
                         progressInterval={100}
                         url={url} 

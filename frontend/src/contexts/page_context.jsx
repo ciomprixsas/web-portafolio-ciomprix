@@ -13,20 +13,11 @@ export const PageProvider = (props) => {
 
   const [charged,setCharged] = useState(false)
   const [solutions,setSolutions] = useState()
-  const userInfo= {user:'admi',password:'123'}
-  const [sessionOpened,setSessionOpened] = useState(false)
 
   
   const pageApi = axios.create({
     baseURL: 'https://test-api-ciom-production.up.railway.app/api/'
   })
-
-  const LogIn = (user,password) =>{
-    //console.log(`user:${userInfo.user==user},password:${userInfo.password==password}`)
-    if(userInfo.user == user && userInfo.password == password){
-      setSessionOpened(true)
-    }
-  }
 
   const usingApi = async(endpoint) => {
     
@@ -57,6 +48,10 @@ export const PageProvider = (props) => {
     return await usingApi('storagesByCategory/'+id)
   }
 
+  const getStorages= async() => {
+    return await usingApi('storages')
+  }
+
   const value = {
     getSolution,
     solutions,
@@ -65,8 +60,7 @@ export const PageProvider = (props) => {
     getCategoriesBySolution,
     getStoragesByCategory,
     setCharged,
-    LogIn,
-    sessionOpened,
+    getStorages,
     charged,
     cards_img,
   }

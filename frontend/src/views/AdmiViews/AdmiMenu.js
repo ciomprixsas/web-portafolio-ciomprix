@@ -6,7 +6,8 @@ import * as General from "../../components/general/GeneralModules";
 import { IconContext }from 'react-icons'
 import { BsGraphUp } from 'react-icons/bs'
 import { GrMenu } from 'react-icons/gr'
-import { MdManageSearch } from 'react-icons/md'
+import { MdManageSearch,MdCategory } from 'react-icons/md'
+import { GrStorage } from 'react-icons/gr'
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
@@ -59,8 +60,10 @@ const AdmiMenu = ({}) => {
             </IconContext.Provider>
             {menuOpened &&
             <Menu close={closeMenu}>
-                    <MenuItem icon={<BsGraphUp size={'30px'}/>} title='Dashboard' href={'/admi/dashboard'}/>
-                    <MenuItem icon={<MdManageSearch size={'30px'}/>} title='Solutions' href={'/admi/solution_manager'}/>
+                    <MenuItem icon={<BsGraphUp size={'30px'}/>} title='Dashboard' href={'/admin/dashboard'}/>
+                    <MenuItem icon={<MdManageSearch size={'30px'}/>} title='Soluciones' href={'/admin/solution_manager'}/>
+                    <MenuItem icon={<MdCategory size={'30px'}/>} title='Categorias' href={'/admin/category_manager'}/>
+                    <MenuItem icon={<GrStorage size={'30px'}/>} title='Elementos' href={'/admin/storage_manager'}/>
             </Menu>
             }
         </>

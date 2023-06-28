@@ -12,11 +12,12 @@ import SolutionView from './views/SolutionView'
 import AdmiDashboard from './views/AdmiViews/AdmiDashboard'
 import SolutionManager from './views/AdmiViews/SolutionManager'
 import SolutionForm from './views/AdmiViews/SolutionForm'
+import CategoryManager from './views/AdmiViews/CategoryManager'
+import StorageManager from './views/AdmiViews/StorageManager'
 
 function RouteProtector({login,redirect,children}){
-  const {sessionOpened} = usePageContext()
   if(login){
-    if(sessionOpened){
+    if(global.session){
       return children
     }
     else{
@@ -45,7 +46,7 @@ function App() {
   else if(solutions){
     solutionRoutes  = solutions.map((s)=>{
         return(
-          <Route key={s.id} path={s.routes_s+'/:id'} element={<SolutionView title={s.tittle_s} description={s.description_s} banner={s.img_banner_s
+          <Route key={s.id} path={s.route_s+'/:id'} element={<SolutionView title={s.tittle_s} description={s.description_s} banner={s.img_banner_s
           }/>}/>
         )
     })
@@ -54,22 +55,37 @@ function App() {
       <>
         <BrowserRouter basename={window.location.pathname || ''}>
           <Routes>
-            <Route exact path='/' element={<Landing/>}/>
+            <Route exact path='/land' element={<Landing/>}/>
             {solutionRoutes}
-            <Route path='/admi/login' element={<AdmiLogin/>}/>
-            <Route exact path='/admi/dashboard' element={
-              <RouteProtector login redirect={'/admi/login'}>
+            <Route path='/admin/login' element={<AdmiLogin/>}/>
+            <Route exact path='/' element={
+              <RouteProtector login redirect={'/admin/login'}>
                 <AdmiDashboard/>
               </RouteProtector>
             }/>
-            <Route exact path='/admi/solution_manager' element={
-              <RouteProtector login redirect={'/admi/login'}>
+            <Route exact path='/admin/solution_manager' element={
+              <RouteProtector login redirect={'/admin/login'}>
                 <SolutionManager/>
               </RouteProtector>
             }/>
-            <Route exact path='/admi/solution_creator' element={
-              <RouteProtector login redirect={'/admi/login'}>
+            <Route exact path='/admin/solution_creator' element={
+              <RouteProtector login redirect={'/admin/login'}>
                 <SolutionForm/>
+              </RouteProtector>
+            }/>
+            <Route exact path='/admin/solution_editor/:id' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <SolutionForm editor/>
+              </RouteProtector>
+            }/>
+            <Route exact path='/admin/category_manager' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <CategoryManager/>
+              </RouteProtector>
+            }/>
+            <Route exact path='/admin/storage_manager' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <StorageManager/>
               </RouteProtector>
             }/>
           </Routes>

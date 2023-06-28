@@ -34,7 +34,7 @@ const InteractiveCard = ({title,className,width,href,src,vid}) => {
                 </div>
             </General.BgImage>
             <General.Modal className='w-[100vw] md:w-[70vw] lg:w-[50vw]' state={modal} setState={setModal}>
-                <General.Video url={''} className={`mt-3`}/>
+                <General.Video url={vid} className={`mt-3`}/>
             </General.Modal>
            </>
         </>

@@ -28,7 +28,7 @@ const Header = ({mode}) => {
                 <nav className='flex flex-row justify-end items-center w-0 z-10 h-full invisible lg:visible lg:w-full'>
                         <General.Cloner //Generador de menu 
                             items={Object.values(solutions)} 
-                            rprops={[['hrefl','routes_s'],['children','tittle_s'],['key','id']]}
+                            rprops={[['hrefl','route_s'],['children','tittle_s'],['key','id']]}
                         >
                             <General.Trigger className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
                         </General.Cloner>

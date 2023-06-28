@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { usePageContext } from '../../contexts/page_context'
+import * as General from "./GeneralModules";
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
@@ -13,6 +14,7 @@ const Footer = ({}) => {
                 <h6 className='w-full text-center text-xs my-3 lg:m-0 lg:text-lg'>
                     Copyright derechos reservados de CIOMPRIX 2023
                 </h6>
+                <General.Trigger href={'/admin/login'} className={'bg-gray-800 p-2 rounded-xl text-xs text-center text-gray-600 hover:text-white hover:bg-gray-700'}>Panel Administrativo</General.Trigger>
             </footer>
         </>
     )
