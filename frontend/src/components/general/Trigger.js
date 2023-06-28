@@ -6,13 +6,12 @@ export const BASE_URL = process.env.REACT_APP_URL;
 
 const Trigger = ({href,hrefl,onClick,className,children}) => {
 
-    const {setCharged} = usePageContext()
-
     if(hrefl){
         //console.log(BASE_URL+'=' + window.location.pathname)
-        if(window.location.pathname!=BASE_URL){
+        if(window.location.pathname!=global.basepathname){
+            console.log(global.basepathname.substring(0,global.basepathname.length-1)+'#'+hrefl)
             return(
-                <a className={className} href={BASE_URL+'#'+hrefl}>
+                <a className={className} href={global.basepathname.substring(0,global.basepathname.length-1)+'#'+hrefl}>
                     {children}
                 </a>
             )

@@ -19,6 +19,7 @@ const Landing = () => {
 
     const [localSolutions,setLocalSolutions] = useState()
 
+    global.basepathname = (window.location.pathname)
 
     const setData = async() =>{
         let s = Object.values(solutions)
@@ -32,16 +33,20 @@ const Landing = () => {
         setCharged(true)
     }
 
-    if(!charged || !localSolutions){
-        setData()
-        return <Loading/>
-    }
-    else if(localSolutions){
+    useEffect(()=>{
+        console.log('Effect')
         if(window.location.hash){
             let h = window.location.hash
             window.location.hash=null
             window.location.hash=h
         }
+    },[localSolutions])
+
+    if(!charged || !localSolutions){
+        setData()
+        return <Loading/>
+    }
+    else if(localSolutions){
         return (
             <>
             <General.BgImage 
@@ -50,6 +55,7 @@ const Landing = () => {
             >
             <General.Header mode="ligth" items={solutions}/>
                 <main className='w-full relative z-20 text-white px-4 lg:px-16 xl:px-28 2xl:px-48'>
+                    <General.Trigger href={'/admi/login'}>Admi</General.Trigger>
                     <h1 className='text-4xl mt-10 openBold pl-2 lg:mt-28 md:text-5xl md:w-10/12 lg:w-7/12 lg:p-0'>Conoce nuestro portafolio de servicios</h1>
                     <h2 className='text-3xl openMedium pl-2 lg:mt-5 md:text-4xl md:w-10/12 lg:w-7/12 lg:p-0'>La forma de generar aprendizaje más fácil</h2>
                     <ul className='grid mt-44 grid-cols-2 gap-4 flex-wrap w-full md:grid-cols-3 xl:grid-cols-4 2xl:mt-56'>
