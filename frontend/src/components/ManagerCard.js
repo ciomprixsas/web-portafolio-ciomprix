@@ -1,9 +1,18 @@
-import * as React from "react";
+//Importacion de componentes
+import * as React from 'react'
 import * as General from "./general/GeneralModules";
 
+//Importacion de iconos
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSquarePen,faRectangleXmark} from '@fortawesome/free-solid-svg-icons'
 
+/*____________________________________________________
+PROPS
+img: Url para definir la imagen que se mostrara
+title: String que define el titulo de la tarjeta y es una llave unica del registro
+active: Booleano que da un valor inicial a la interfaz de activacion
+href: Url para redireccionar a la interfas de edicion del registro
+________________________________________________________________*/
 const ManagerCard = ({img,title,active,href}) => {
 
     const [activeS,setActiveS] = React.useState(active)

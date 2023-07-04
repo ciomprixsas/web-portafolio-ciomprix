@@ -1,13 +1,18 @@
-import {useEffect, useState} from 'react'
 import * as General from './GeneralModules'
 import { usePageContext } from '../../contexts/page_context'
-import axios from "axios";
 
 export const BASE_URL = process.env.REACT_APP_URL;
+
+/*____________________________________________________
+PROPS
+mode:Stirng que define el modo oscuro o modo claro('ligth')
+________________________________________________________________*/
+
 
 const Header = ({mode}) => {
 
     const {solutions} = usePageContext()
+
 
     return (
         <>  
@@ -27,8 +32,9 @@ const Header = ({mode}) => {
                 
                 <nav className='flex flex-row justify-end items-center w-0 z-10 h-full invisible lg:visible lg:w-full'>
                         <General.Cloner //Generador de menu 
-                            items={Object.values(solutions)} 
+                            items={solutions} 
                             rprops={[['hrefl','route_s'],['children','tittle_s'],['key','id']]}
+                            lim={4}
                         >
                             <General.Trigger className={`px-5 h-full py-8 transition-colors duration-100 ${(mode === 'ligth')?'hover:bg-blue-500':'hover:bg-gray-300'}`}/>
                         </General.Cloner>

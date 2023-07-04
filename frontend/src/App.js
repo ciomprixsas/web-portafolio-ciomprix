@@ -7,13 +7,14 @@ import { PageProvider,usePageContext} from './contexts/page_context'
 import Landing from './views/Landing'
 import Loading from './views/Loading'
 import AdmiLogin from './views/AdmiViews/AdmiLogIn'
-import { useState} from 'react'
 import SolutionView from './views/SolutionView'
 import AdmiDashboard from './views/AdmiViews/AdmiDashboard'
 import SolutionManager from './views/AdmiViews/SolutionManager'
 import SolutionForm from './views/AdmiViews/SolutionForm'
 import CategoryManager from './views/AdmiViews/CategoryManager'
 import StorageManager from './views/AdmiViews/StorageManager'
+import CategoryForm from './views/AdmiViews/CategoryForm'
+import StorageForm from './views/AdmiViews/StorageForm'
 
 function RouteProtector({login,redirect,children}){
   if(login){
@@ -55,10 +56,10 @@ function App() {
       <>
         <BrowserRouter basename={window.location.pathname || ''}>
           <Routes>
-            <Route exact path='/land' element={<Landing/>}/>
+            <Route exact path='/' element={<Landing/>}/>
             {solutionRoutes}
             <Route path='/admin/login' element={<AdmiLogin/>}/>
-            <Route exact path='/' element={
+            <Route exact path='/admin/dashboard' element={
               <RouteProtector login redirect={'/admin/login'}>
                 <AdmiDashboard/>
               </RouteProtector>
@@ -83,9 +84,29 @@ function App() {
                 <CategoryManager/>
               </RouteProtector>
             }/>
+            <Route exact path='/admin/category_creator' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <CategoryForm/>
+              </RouteProtector>
+            }/>
+            <Route exact path='/admin/category_editor/:id' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <CategoryForm editor/>
+              </RouteProtector>
+            }/>
             <Route exact path='/admin/storage_manager' element={
               <RouteProtector login redirect={'/admin/login'}>
                 <StorageManager/>
+              </RouteProtector>
+            }/>
+            <Route exact path='/admin/storage_creator' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <StorageForm/>
+              </RouteProtector>
+            }/>
+            <Route exact path='/admin/storage_editor/:id' element={
+              <RouteProtector login redirect={'/admin/login'}>
+                <StorageForm editor/>
               </RouteProtector>
             }/>
           </Routes>

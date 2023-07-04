@@ -1,5 +1,6 @@
 import * as React from "react";
 
+//Importacion de componentes
 import * as General from "../../components/general/GeneralModules";
 import { usePageContext } from "../../contexts/page_context";
 import { useNavigate } from "react-router-dom";
@@ -8,19 +9,37 @@ import { useNavigate } from "react-router-dom";
 export const BASE_URL = process.env.REACT_APP_URL;
 
 const AdmiLogIn = ({}) => {
-    
+    //Estados
     const [email,setEmail] = React.useState()
     const [password,setPassword] = React.useState()
+    const [error,setError] = React.useState(false)
 
-    const userInfo= {email:'admin@ciomprix.com',password:'123456'}
+    //Funciones para acceso a Api
+    const {getUsers} = usePageContext()
     
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    
+    //Configuración de objetos para correcta configuración de componentes
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        if(userInfo.email == email && userInfo.password == password){
-          global.session = true
-          navigate('/admin/dashboard')
+        let allUsers = await getUsers()
+        for(let u of allUsers){
+            if(u.mail_u == email){
+                if(u.pass_u == password){
+                    global.session = true
+                    navigate('/admin/dashboard')
+                }
+                else{
+                    setError(true)
+                }
+                break
+            }
+        }
+        console.log(global.session)
+        if(!global.session){
+            console.error('Error')
+            setError(true)
         }
     }
 
@@ -49,6 +68,12 @@ const AdmiLogIn = ({}) => {
                     Volver
                 </General.Trigger>
             </div>
+
+            <General.Modal state={error} title="Error" setState={setError}>
+                <div className="flex justify-center items-center w-80 h-auto p-10 bg-white rounded-xl">
+                    <span>Correo o contraseña incorrectos</span>
+                </div>
+            </General.Modal>
         </div>
     );
 }

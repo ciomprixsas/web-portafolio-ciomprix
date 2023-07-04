@@ -1,5 +1,10 @@
-import React from 'react'
+//Uso de libreria React Lorem Ipsum: https://www.npmjs.com/package/react-lorem-ipsum
 import { loremIpsum, name, surname, fullname, username } from 'react-lorem-ipsum'
+
+/*____________________________________________________
+PROPS
+long: Entero que define la longitud del texto en numero de letras 
+________________________________________________________________*/
 
  const Lorem = ({long}) => {
 

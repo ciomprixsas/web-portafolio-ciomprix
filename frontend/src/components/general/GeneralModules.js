@@ -1,4 +1,5 @@
-//Componentes
+//Central de componentes mas utilizados para facil acceso
+
 import BgImage from './BgImage'
 import Footer from './Footer'
 import Header from './Header'

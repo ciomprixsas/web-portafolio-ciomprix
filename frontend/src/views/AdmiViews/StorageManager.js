@@ -1,25 +1,32 @@
 import * as React from "react";
+
+//Importacion ded componentes
 import * as General from "../../components/general/GeneralModules";
+import AdmiMenu from "./AdmiMenu";
+import ManagerCard from "../../components/ManagerCard";
 
 import { usePageContext } from '../../contexts/page_context'
 
 import {AiOutlinePlusCircle} from 'react-icons/ai'
-import AdmiMenu from "./AdmiMenu";
-import ManagerCard from "../../components/ManagerCard";
 
 const StorageManager= () =>{
+    //Funciones para acceso a Api
     const {getCategoriesBySolution,solutions,getStoragesByCategory} = usePageContext()
-
+    
+    //Estados 
     const [categories,setCategories] = React.useState()
     const [storages,setStorages] = React.useState()
 
+    //Configuración de lista desplegable de soluciones
     const changeSolution = async(id) =>{
         let cat=await getCategoriesBySolution(id)
         for(let c of cat){
-            c.name=c.name_c
+            c.name=c.tittle_c
         }
         setCategories(cat)
     }
+    
+    //Configuración de lista desplegable de soluciones
     const changeCategory = async(id) =>{
         let sto=await getStoragesByCategory(id)
         for(let s of sto){
@@ -33,12 +40,12 @@ const StorageManager= () =>{
         let optionsSolutions = solutions
 
         for(let s of optionsSolutions){
-            s.name=s.name_s
+            s.name=s.tittle_s
         }
 
         return(
             <main className="relative top-28 px-20">
-                <h1 className="text-center text-4xl">Administrador de categorias</h1>
+                <h1 className="text-center text-4xl">Administrador de contenidos</h1>
                 <hr className="border-black border-1 w-full my-5"/>
                 <div className="grid grid-cols-2 gap-5">
                     <General.Input type={'selection'} options={optionsSolutions} name={'Solution:'} setValue={changeSolution}/>

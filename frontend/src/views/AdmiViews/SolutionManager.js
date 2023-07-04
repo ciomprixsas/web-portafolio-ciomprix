@@ -8,6 +8,7 @@ import AdmiMenu from "./AdmiMenu";
 import ManagerCard from "../../components/ManagerCard";
 
 const SolutionManager= () =>{
+    //Obtención de soluciones
     const {solutions} = usePageContext()
 
     if(solutions){
@@ -28,7 +29,7 @@ const SolutionManager= () =>{
                 </General.Cloner>
                 <General.Trigger className={'flex flex-col items-center justify-center w-full h-full bg-gray-800 text-white rounded-2xl'} href={'/admin/solution_creator'}>
                         <AiOutlinePlusCircle color="white" size={'100px'}/>
-                        <div className="mt-5 text-2xl openMedium">Create Solution</div>
+                        <div className="mt-5 text-2xl openMedium">Crear solución</div>
                 </General.Trigger>
             </div>
             <AdmiMenu/>

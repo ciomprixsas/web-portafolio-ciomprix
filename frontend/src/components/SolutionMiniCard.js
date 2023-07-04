@@ -1,6 +1,12 @@
 import * as React from 'react';
 import * as General from "./general/GeneralModules";
 
+/*____________________________________________________
+PROPS
+src: Url para definir el icono de la tajeta
+children: String que define el texto contenido en la tarjeta
+href: Url para definir el redireccionamiento al interactuar con la tarjeta
+________________________________________________________________*/
 const SolutionMiniCard = ({src,children,href}) => {
     return (
         <>

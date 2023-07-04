@@ -20,19 +20,20 @@ const SolutionView = ({title,description,banner}) => {
 
     const {id} = useParams()
 
-    const {getStoragesByCategory,charged,setCharged,getCategory} = usePageContext()
+    //Funciones de acceso para la API
+    const {getStoragesByCategory,getCategory} = usePageContext()
     
     const [storage,setStorage] = useState()
     const [category,setCategory] = useState()
 
+    //Configuración de objetos para correcta configuración de componentes
     const setData = async() => {
         let c =((await getCategory(id)))
         setStorage(await getStoragesByCategory(c[0].id))
         setCategory(c[0])
-        setCharged(true)
     }
 
-    
+    //Control de vista de carga
     if(!storage){
         setData()
         return <Loading/>

@@ -8,10 +8,13 @@ import AdmiMenu from "./AdmiMenu";
 import ManagerCard from "../../components/ManagerCard";
 
 const CategoryManager= () =>{
+    //Funciones para acceso a api
     const {getCategoriesBySolution,solutions} = usePageContext()
 
+    //Estado
     const [categories,setCategories] = React.useState()
 
+    //Cambio de solucion seleccionada
     const changeSolution = async(id) =>{
         let cat=await getCategoriesBySolution(id)
         for(let c of cat){
@@ -27,12 +30,12 @@ const CategoryManager= () =>{
         let options = solutions
 
         for(let s of options){
-            s.name=s.name_s
+            s.name=s.tittle_s
         }
 
         return(
             <main className="relative top-28 px-20 flex items-center flex-col">
-                <h1 className="text-center text-4xl">Administrador de categorias</h1>
+                <h1 className="text-center text-4xl">Administrador de categorías</h1>
                 <hr className="border-black border-1 w-full my-5"/>
                 <General.Input type={'selection'} options={options} name={'Solution:'} setValue={changeSolution}/>
                 {(categories)&&
@@ -42,7 +45,7 @@ const CategoryManager= () =>{
                     </General.Cloner>
                     <General.Trigger className={'flex flex-col items-center justify-center w-full h-full bg-gray-800 text-white rounded-2xl p-5'} href={'/admin/category_creator'}>
                             <AiOutlinePlusCircle color="white" size={'50px'}/>
-                            <div className="mt-5 text-2xl openMedium">Crear categoria</div>
+                            <div className="mt-5 text-2xl openMedium">Crear categoría</div>
                     </General.Trigger>
                 </div>}
                 <AdmiMenu/>

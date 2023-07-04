@@ -1,8 +1,15 @@
 import { Link} from 'react-router-dom';
-import { usePageContext } from "../../contexts/page_context"
 
 export const BASE_URL = process.env.REACT_APP_URL;
 
+/*____________________________________________________
+PROPS
+href:String que define la ruta a una vista
+hrefl: String con el hash del landing solicitado
+onClick: Funcion al hacer click
+className: String que define los estilos del <Trigger>
+children: Componentes internos que seran afectados por el evento del <Trigger>
+________________________________________________________________*/
 
 const Trigger = ({href,hrefl,onClick,className,children}) => {
 
@@ -11,7 +18,7 @@ const Trigger = ({href,hrefl,onClick,className,children}) => {
         if(window.location.pathname!=global.basepathname){
             console.log(global.basepathname.substring(0,global.basepathname.length-1)+'#'+hrefl)
             return(
-                <a className={className} href={global.basepathname.substring(0,global.basepathname.length-1)+'#'+hrefl}>
+                <a className={className} href={global.basepathname+'#'+hrefl}>
                     {children}
                 </a>
             )

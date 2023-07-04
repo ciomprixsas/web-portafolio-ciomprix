@@ -7,22 +7,25 @@ export const BASE_URL = process.env.REACT_APP_URL;
 
 
 const AdmiDashboard = () => {
+    //Funciones para acceso a Api    
     const {solutions,getCategories,getStorages} = usePageContext()
 
+    //Estados
     const [numSolutions,setNumSolutions] = React.useState()
     const [numCategories,setNumCategories] = React.useState()
     const [numStorages,setNumStorages] = React.useState()
     const [charged,setCharged] = React.useState(false)
 
+    
+    //Configuración de objetos para correcta configuración de componentes
     const setData = async() =>{
         setNumSolutions(solutions.length)
-        /*
-        setNumStorages((await getStorages()).length)*/
         setCharged(true)
         setNumCategories((await getCategories()).length)
         setNumStorages((await getStorages()).length)
     }
 
+    //Control de la vista de carga
     if(!charged){
         setData()
     }
@@ -40,7 +43,7 @@ const AdmiDashboard = () => {
             <div className="grid grid-cols-3 gap-16 w-2/3">
                 <StatsCounter title="Soluciones" counts={numSolutions}/>
                 <StatsCounter title="Categorias" counts={numCategories}/>
-                <StatsCounter title="Elementos" counts={numStorages}/>
+                <StatsCounter title="contenidos" counts={numStorages}/>
             </div>
         </main>
         <AdmiMenu/>

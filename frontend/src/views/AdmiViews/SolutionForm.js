@@ -7,22 +7,28 @@ import { usePageContext } from "../../contexts/page_context";
 import { useParams } from "react-router-dom"
 
 const SolutionForm = ({editor}) => {
+    //Estados 
+    //Estados de formulario
     const [activeS,setActiveS] = React.useState(false)
-    const [name,setName] = React.useState()
     const [description,setDescription] = React.useState()
     const [tittle,setTittle] = React.useState()
-    const [error,setError] = React.useState(false)
+
+    
+    const [error,setError] = React.useState(false)//Estado de error del formulario
+    
     const [charged,setCharged] = React.useState(false)
     const [categories,setCategories] = React.useState()
 
+    
+    //Acceso al id especificado por url
     const {id} = useParams()
 
-    const {getSolution,getCategoriesBySolution} = usePageContext()
+    //Funciones para acceso a api
+    const {getSolution,getCategoriesBySolution,createSolution} = usePageContext()
 
-
+    //Configuración de objetos para correcta configuración de componentes
     const setData = async() =>{
         let s = await getSolution(id)
-        setName(s.name_s)
         setTittle(s.tittle_s)
         setActiveS(Boolean(s.active_NoActive))
         setDescription(s.description_s)
@@ -40,53 +46,51 @@ const SolutionForm = ({editor}) => {
     
     const navigate = useNavigate();
 
+    // Obtención de datos desde formulario
     const handleSubmit= (e) =>{
+        let dateUpdate = Date.now()
+        let dateCreated
         e.preventDefault()
-        if(!tittle||!name || !description){
+        if(!tittle|| !description){
             setError(true)
         }
         else{
-            let r = tittle
+            let route = tittle
             let ctrl = 0
-            while(r.includes(' ')){
-                r=r.replace(' ','_').toLowerCase()
+            while(route.includes(' ')){
+                route=route.replace(' ','_').toLowerCase()
                 ctrl++
                 if(ctrl>20){
                     console.log('Roto')
                     break
                 }
             }
-            console.log(`${name},${tittle},${r},${activeS},${description}`)
-            navigate('/admin/solution_manager')
+            if(editor){
+
+            }
+            else {
+                dateCreated=Date.now()
+                console.log('Create')
+                createSolution({route,tittle,description,dateCreated,dateUpdate})
+            }
+            //navigate('/admin/solution_manager')
         }
     }
 
-    
-    let options = [
-        {name:'Option 1',id:'1'},
-        {name:'Option 2',id:'2'},
-        {name:'Option 3',id:'3'},
-        {name:'Option 4',id:'4'}
-    ]
     return (
         <>
         <main className="relative top-36 px-20">
-            <h1 className="text-center text-4xl">{(editor)?('Editor de solucion'):('Creador de solucion')}</h1>
+            <h1 className="text-center text-4xl">{(editor)?('Editor de solución'):('Creador de solución')}</h1>
             <hr className="border-black border-1 w-full my-5"/>
             <form className="grid grid-cols-3 grid-rows-3 gap-4 grid-rows-10 w-full"  onSubmit={handleSubmit}>
-                {/*
-                    <General.Input type={'file-img'} name={'Icono'} id={'icon'} className={'relative w-full h-auto col-start-1'}/>
-                    <General.Input type={'file-img'} name={'Banner'} id={'banner'} className={'relative w-full h-auto'}/>
-                */}
-                <General.Input type={'small_text'} name={'Nombre'} id={'name'} className={'col-start-1'} setValue={setName} value={name}/>
                 <General.Input type={'small_text'} name={'Titulo'} id={'tittle'} className={'col-start-2'} setValue={setTittle} value={tittle}/>
                 <General.Input type={'active'} id={'active'} className={'flex flex-row items-center h-full col-start-3'} setValue={setActiveS} value={activeS}/>
-                <General.Input type={'large-text'} name={'Descripcion'} setValue={setDescription} className={'row-start-2 col-start-1 col-span-3 h-full'} value={description}/>
+                <General.Input type={'large-text'} name={'Descripción'} setValue={setDescription} className={'row-start-2 col-start-1 col-span-3 h-full'} value={description}/>
                 <General.Input type={'submit'} className={'row-start-3 col-start-2'} name={(editor)?('Actualizar'):('Crear')}/>
             </form>
             {(editor && charged) &&
                 <>
-                <h2 className="w-full text-2xl text-center">Categorias</h2>
+                <h2 className="w-full text-2xl text-center">Categorías</h2>
                 <hr className="w-full border-gray-400 border-1 my-2"/>
                 <div className="grid grid-cols-3 p-4 gap-4">
                     <General.Cloner items={categories} rprops={[['title','tittle_c'],['active','active_NoActive'],['key','id'],['href','route']]}>

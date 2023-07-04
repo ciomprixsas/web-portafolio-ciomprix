@@ -1,4 +1,4 @@
-import { useState,useRef, useEffect ,useCallback, useDebugValue } from 'react';
+import { useState,useRef,useEffect} from 'react';
 import * as General from './general/GeneralModules';//Importacion de modulos generales
 import InteractiveCard from './InteractiveCard';
 import useScreenSize from '../hooks/useScreenSize';
@@ -6,18 +6,21 @@ import useScreenSize from '../hooks/useScreenSize';
 //Exportacion de iconos
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faChevronLeft,faChevronRight} from '@fortawesome/free-solid-svg-icons'
-import { usePageContext } from '../contexts/page_context';
 
 
 const SolutionsCarousel = ({title,element,href}) => {
     const {width} = useScreenSize()
 
+    //Define el ancho de los elementos contenidos
     const [widthItems,setWidthItems] = useState()
+
+    //Identifica el elemento que se esta mostrando
     const [item, setItem] = useState(0)
     
-   // const [jump,jump=] = useState(1)
+    //Limitante de movimiento
     const [lim,setLim] = useState()
 
+    //Obtine el ancho de la grid que contiene los elementos del carusel
     const widthUsableRef = useRef(null)
 
     //if(element!=undefined)console.log(element.length)
@@ -60,6 +63,7 @@ const SolutionsCarousel = ({title,element,href}) => {
         })
     }
 
+    //Calibracion responsivo
     if(width<640 && jump!=1)jump=1
     else if(width<768 && jump!=1)jump=(2)
     else if(width<1024 && jump!=1)jump=(3)

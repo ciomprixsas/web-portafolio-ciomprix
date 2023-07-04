@@ -15,12 +15,16 @@ const Landing = () => {
 
     const {width} = useScreenSize()
 
-    const {solutions,charged,setCharged,getCategoriesBySolution} = usePageContext()
+    //Acceso a las funciones de la api
+    const {solutions,getCategoriesBySolution} = usePageContext()
+
+    const [charged,setCharged] = useState(false)
 
     const [localSolutions,setLocalSolutions] = useState()
 
     global.basepathname = (window.location.pathname)
 
+    //Configuración de objetos para correcta configuración de componentes
     const setData = async() =>{
         let s = Object.values(solutions)
         for(let a of s){
@@ -33,6 +37,7 @@ const Landing = () => {
         setCharged(true)
     }
 
+    //Funcionamiento de hash desde una dirección diferente
     useEffect(()=>{
         if(window.location.hash){
             setTimeout(()=>{
@@ -43,6 +48,7 @@ const Landing = () => {
         }
     },[localSolutions])
 
+    //Control de vista de carga
     if(!charged || !localSolutions){
         setData()
         return <Loading/>
