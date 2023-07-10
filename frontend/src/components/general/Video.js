@@ -1,8 +1,17 @@
-import ReactPlayer from 'react-player'//Importacion de componente de video
+//Uso de libreria ReactPlayer: https://www.npmjs.com/package/react-player
+import ReactPlayer from 'react-player'
+
+//Importacion de iconos desde Reacticons
 import { BsFillPlayFill,BsPauseFill } from 'react-icons/bs';
 import { TbReload } from 'react-icons/tb';
 import { useState,useCallback,useRef } from 'react';
-import { BASE_URL } from './BgImage';
+
+export const BASE_URL = process.env.REACT_APP_URL;
+
+/*____________________________________________________
+Por favor no tocar
+VVVVVVVVVVVVVVVVVV
+________________________________________________________________*/
 
 const VideoControls = ({//Componente de controles del video
     progress,
@@ -17,7 +26,7 @@ const VideoControls = ({//Componente de controles del video
     const percentProgress = (progress/duration)*100 //Control de barra de progreso
 
     return(
-                <div className={`absolute bottom-1 w-[99%] h-8 bg-black flex items-center px-4 rounded-full z-10`}>
+                <div className={`absolute bottom-1 w-[99%] h-8 bg-black flex items-center px-4 rounded-full z-10`}>{/*Estilo de barra de progreso*/}
                     <button 
                         className='w-5 active:scale-125 transition-all durition-100' 
                         onClick={(progress<duration)?handlePlay:handleReplay}
@@ -52,7 +61,11 @@ const VideoControls = ({//Componente de controles del video
     )
 }
 
-
+/*____________________________________________________
+PROPS VideoControls
+url:Fuente del video
+className: String que define los estilos del video
+________________________________________________________________*/
 const Video = ({url='https://www.youtube.com/watch?v=ixBgrqho03E',className}) => {//Componente principal
     //Acceso a la misma instancia
     const videoRef = useRef(null)
@@ -86,9 +99,9 @@ const Video = ({url='https://www.youtube.com/watch?v=ixBgrqho03E',className}) =>
 
     return (
         <>
-            <div className={`flex items-center flex-col ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full h-[50vh]'} ${className}`} id='video'>
+            <div className={`flex bg-black items-center flex-col ${fullscreen?'fixed h-screen w-full top-0 left-0':'relative w-full h-auto'} ${className}`} id='video'>
                     <ReactPlayer 
-                        volume={0.5}
+                        volume={1}
                         playing={play}
                         progressInterval={100}
                         url={url} 

@@ -96,6 +96,11 @@ code {
   background-position: center;
 }
 
+.loginBg{
+  background-position: 30% 0;
+  background-size: cover;
+}
+
 
 @keyframes loading {
   to{transform: rotate(360deg);}
