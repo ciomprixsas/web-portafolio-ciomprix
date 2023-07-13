@@ -1,5 +1,5 @@
 import { usePageContext } from '../contexts/page_context'
-import { useRef,useEffect, useState, useCallback } from 'react'
+import { useEffect, useState} from 'react'
 
 //Componentes
 import * as General from '../components/general/GeneralModules'
@@ -30,7 +30,7 @@ const Landing = () => {
         for(let a of s){
             a.categories = await getCategoriesBySolution(a.id)
             for(let b of a.categories){
-                b.route = a.route_s+'/'+b.id
+                b.route = a.route_s+'/'+ b.id
             }
         }
         setLocalSolutions(s)

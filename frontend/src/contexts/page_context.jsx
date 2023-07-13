@@ -35,18 +35,18 @@ export const PageProvider = (props) => {
     return await getApi('solution/'+id)
   }
   const getCategoriesBySolution = async(id) => {
-    return await getApi('categoriesBySolution/'+id)
+    return await getApi('categoriesBySolution/?id='+id)
   }
   
   const getCategories = async() => {
     return Object.values(await getApi('categories'))
   }
   const getCategory = async(id) => {
-    return Object.values(await getApi('category/'+id))
+    return Object.values(await getApi('category/?id='+id))
   }
 
   const getStoragesByCategory = async(id) => {
-    return await getApi('storagesByCategory/'+id)
+    return await getApi('storagesByCategory/?id='+id)
   }
 
   const getStorages= async() => {
@@ -54,7 +54,7 @@ export const PageProvider = (props) => {
   }
 
   const getStorage= async(id) => {
-    return await getApi('storage/'+id)
+    return await getApi('storage/?id='+id)
   }
   
   const getUsers= async() => {
